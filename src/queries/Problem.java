@@ -6,7 +6,7 @@ public class Problem {
     public void createProblems(Connection con){
         try{
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("INSERT INTO Problem values('A', 'zyzzsama', '3500', 1562)");
+            ResultSet rs = stmt.executeQuery("select * from Problem");
             while (rs.next()) {
                 System.out.println(rs.getString("ProblemID") + " " + rs.getInt("ProblemRating"));
             }
