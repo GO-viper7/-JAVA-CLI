@@ -10,17 +10,20 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.io.FileWriter;
 import database.*;
-
+import java.sql.*;
+import queries.*;
 public class App {
 
     public static void main(String[] args) {
-        
-        sqlconnectivity account = new sqlconnectivity();
+        Connection conn = null;
+        sqlconnectivity codeforces = new sqlconnectivity();
         try {
-            account.connectSql();
+            conn = codeforces.connectSql();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+        Problem prob = new Problem();
+        prob.createProblems(conn);
     //     Scanner sc = new Scanner(System.in);
     //     System.out.println("Enter the command");
     //     String command = sc.nextLine();
