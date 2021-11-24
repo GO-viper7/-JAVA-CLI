@@ -2,7 +2,7 @@ import database.*;
 import java.io.*;
 import java.sql.*;
 import queries.*;
-import operations.display.*;
+import bin.operations.display.*;
 
 public class App {
     private static Connection conn = null;
