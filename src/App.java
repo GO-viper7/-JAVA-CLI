@@ -2,6 +2,7 @@ import database.*;
 import java.io.*;
 import java.sql.*;
 import queries.*;
+import operations.display.*;
 
 public class App {
     private static Connection conn = null;
@@ -70,9 +71,10 @@ public class App {
         case "-s":
             switch (args[1]) {
                 case "all":
-                    Display.displayAll(con);
+                    Display.displayAll(conn);
                     codeforces.disconnect(conn);
                     break;
+            }
         // case "cat":
         // Display.displayCatagories(con, args[2]);
         // codeforces.disconnect(conn);
