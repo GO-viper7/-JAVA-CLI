@@ -1,245 +1,272 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.io.FileWriter;
 import database.*;
 import java.sql.*;
 import queries.*;
-public class App {
 
-    public static void main(String[] args) {
-        Connection conn = null;
+public class App {
+    private static Connection conn = null;
+
+    public static void createTables() {
+        try {
+            Statement stmt2 = conn.createStatement();
+            String table1 = "CREATE TABLE Problem (ProblemID varchar(50),Author varchar(255),ProblemRating int,ContestID int);";
+            String table2 = "CREATE TABLE Users (Username varchar(255),Rating int,MaxRating int,Organisation varchar(255),City varchar(255),Country varchar(255),Contribution int);";
+            String table3 = "CREATE TABLE Contest (ContestID int,Author varchar(100),Division int,StartTime datetime,EndTime datetime);";
+            String table4 = "CREATE TABLE Submission (SubmissionID int,ContestID int,ProblemID varchar(50),UserName varchar(255),Verdict varchar(50));";
+            String dropProblem = "drop table if exists Problem";
+            String dropUsers = "drop table if exists Users";
+            String dropContest = "drop table if exists Contest";
+            String dropSubmission = "drop table if exists Submission";
+            stmt2.executeUpdate(dropProblem);
+            stmt2.executeUpdate(dropUsers);
+            stmt2.executeUpdate(dropContest);
+            stmt2.executeUpdate(dropSubmission);
+            stmt2.executeUpdate(table1);
+            stmt2.executeUpdate(table2);
+            stmt2.executeUpdate(table3);
+            stmt2.executeUpdate(table4);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void loadData() throws SQLException {
+        // Statement stmt = con.createStatement();
+        // ResultSet rs = stmt.executeQuery("show tables");
+        System.out.println("Working");
+        // while (rs.next()) {
+        // if (rs.getString(1).toLowerCase().equals("menu")) {
+        // System.out.println("found");
+        // return;
+        // }
+    }
+
+    public static void main(String[] args) throws SQLException , ClassNotFoundException {
         sqlconnectivity codeforces = new sqlconnectivity();
         try {
             conn = codeforces.connectSql();
         } catch (ClassNotFoundException e) {
+            System.out.println(e);
             e.printStackTrace();
         }
-        Problem prob = new Problem();
-        prob.createProblems(conn);
-    //     Scanner sc = new Scanner(System.in);
-    //     System.out.println("Enter the command");
-    //     String command = sc.nextLine();
-    //     String[] commandArray = command.split(" ");
-    //     if (commandArray[0].equals("-create")) {
-    //         if (commandArray.length == 1) {
-    //             System.out.println("Please enter the file name");
-    //             String fileName = sc.nextLine();
-    //             create(fileName);
-    //         } else {
-    //             create(commandArray[1]);
-    //         }
-    //     } else if (commandArray[0].equals("-read")) {
-    //         if (commandArray.length == 1) {
-    //             System.out.println("Please enter the file name");
-    //             String fileName = sc.nextLine();
-    //             read(fileName);
-    //         } else {
-    //             read(commandArray[1]);
-    //         }
-    //     } else if (commandArray[0].equals("-update")) {
-    //         if (commandArray.length == 1) {
-    //             System.out.println("Please enter the file name");
-    //             String fileName = sc.nextLine();
-    //             update(fileName);
-    //         } else {
-    //             update(commandArray[1]);
-    //         }
-    //     } else if (commandArray[0].equals("-delete")) {
-    //         if (commandArray.length == 1) {
-    //             System.out.println("Please enter the file name");
-    //             String fileName = sc.nextLine();
-    //             delete(fileName);
-    //         } else {
-    //             delete(commandArray[1]);
-    //         }
-    //     } else if (commandArray[0].equals("-search")) {
-    //         if (commandArray.length == 1) {
-    //             System.out.println("Please enter the file name");
-    //             String fileName = sc.nextLine();
-    //             search(fileName);
-    //         } else {
-    //             search(commandArray[1]);
-    //         }
-    //     } else if (commandArray[0].equals("-aggregate")) {
-    //         if (commandArray.length == 1) {
-    //             System.out.println("Please enter the file name");
-    //             String fileName = sc.nextLine();
-    //             aggregate(fileName);
-    //         } else {
-    //             aggregate(commandArray[1]);
-    //         }
-    //     } else {
-    //         System.out.println("Invalid command");
-    //     }
-    // }
+        createTables();
+        switch (args[0]) {
+            case "-l":
+                loadData();
+                // codeforces.disconnect(conn);
+                break;
+            // case "-s":
+            //     switch (args[1]) {
+            //     case "all":
+            //         Display.displayAll(con);
+            //         codeforces.disconnect(conn);
+            //         break;
+            //     case "cat":
+            //         Display.displayCatagories(con, args[2]);
+            //         codeforces.disconnect(conn);
+            //         break;
+            //     case "type":
+            //         Display.displayType(con, args[2]);
+            //         codeforces.disconnect(conn);
+            //         break;
+            //     case "fl":
+            //         switch (args[2]) {
+            //             case "cat":
 
-    // public static void create(String fileName) {
-    //     try {
-    //         File file = new File(fileName);
-    //         if (file.exists()) {
-    //             System.out.println("File already exists");
-    //         } else {
-    //             file.createNewFile();
-    //             System.out.println("File created");
-    //         }
-    //     } catch (IOException ex) {
-    //         Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-    //     }
-    // }
+            //             Display.displayCatagoriesFirstLetter(con, args[3]);
+            //             codeforces.disconnect(conn);
+            //             break;
+            //             case "foodname":
 
-    // public static void read(String fileName) {
-    //     try {
-    //         File file = new File(fileName);
-    //         if (file.exists()) {
-    //             FileReader fr = new FileReader(file);
-    //             int c;
-    //             while ((c = fr.read()) != -1) {
-    //                 System.out.print((char) c);
-    //             }
-    //             fr.close();
-    //         } else {
-    //             System.out.println("File does not exist");
-    //         }
-    //     } catch (FileNotFoundException ex) {
-    //         Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-    //     } catch (IOException ex) {
-    //         Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-    //     }
-    // }
+            //             Display.displayFoodNameFirstLetter(con, args[3]);
+            //             codeforces.disconnect(conn);
+            //             break;
+                    
+            //             default:
+            //             printHelp();
+            //                 break;
+            //         }
+            //         case "ps":
+            //         switch (args[2]) {
+            //             case "cat":
 
-    // public static void update(String fileName) {
-    //     try {
-    //         File file = new File(fileName);
-    //         if (file.exists()) {
-    //             Scanner sc = new Scanner(System.in);
-    //             System.out.println("Enter the id");
-    //             int id = sc.nextInt();
-    //             System.out.println("Enter the firstname");
-    //             String firstname = sc.next();
-    //             System.out.println("Enter the lastname");
-    //             String lastname = sc.next();
-    //             System.out.println("Enter the email");
-    //             String email = sc.next();
-    //             System.out.println("Enter the phone");
-    //             String phone = sc.next();
-    //             System.out.println("Enter the address");
-    //             String address = sc.next();
-    //             System.out.println("Enter the city");
-    //             String city = sc.next();
-    //             System.out.println("Enter the state");
-    //             String state = sc.next();
-    //             System.out.println("Enter the zip");
-    //             String zip = sc.next();
-    //             System.out.println("Enter the country");
-    //             String country = sc.next();
-    //             System.out.println("Enter the gender");
-    //             String gender = sc.next();
-    //             System.out.println("Enter the date");
-    //             String date = sc.next();
-    //             System.out.println("Enter the time");
-    //             String time = sc.next();
-    //             System.out.println("Enter the course");
-    //             String course = sc.next();
-    //             System.out.println("Enter the grade");
-    //             String grade = sc.next();
-    //             System.out.println("Enter the status");
-    //             String status = sc.next();
-    //             System.out.println("Enter the comment");
-    //             String comment = sc.next();
-    //             System.out.println("Enter the file name");
-    //             String fileNames = sc.next();
-    //             file.delete();
-    //             file.createNewFile();
-    //             FileWriter fw = new FileWriter(file);
-    //             fw.write(id + "," + firstname + "," + lastname + "," + email + "," + phone + "," + address + "," + city + "," + state + "," + zip + "," + country + "," + gender + "," + date + "," + time + "," + course + "," + grade + "," + status + "," + comment);
-    //             fw.close();
-    //             System.out.println("File updated");
-    //         } else {
-    //             System.out.println("File does not exist");
-    //         }
-    //     } catch (IOException ex) {
-    //         Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-    //     }
-    // }
+            //             Display.displayCatagoriesPartialString(con, args[3]);
+            //             codeforces.disconnect(conn);
+            //             break;
+            //             case "foodname":
 
-    // public static void delete(String fileName) {
-    //     try {
-    //         File file = new File(fileName);
-    //         if (file.exists()) {
-    //             Scanner sc = new Scanner(System.in);
-    //             System.out.println("Enter the id");
-    //             int id = sc.nextInt();
-    //             file.delete();
-    //             System.out.println("File deleted");
-    //         } else {
-    //             System.out.println("File does not exist");
-    //         }
-    //     } catch (Exception ex) {
-    //         Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-    //     }
-    // }
-
-    // public static void search(String fileName) {
-    //     try {
-    //         File file = new File(fileName);
-    //         if (file.exists()) {
-    //             Scanner sc = new Scanner(file);
-    //             ArrayList<String> list = new ArrayList<>();
-    //             while (sc.hasNextLine()) {
-    //                 list.add(sc.nextLine());
-    //             }
-    //             System.out.println("Enter the field");
-    //             String field = sc.next();
-    //             System.out.println("Enter the condition");
-    //             String condition = sc.next();
-    //             Pattern p = Pattern.compile(condition);
-    //             Matcher m = p.matcher(field);
-    //             if (m.find()) {
-    //                 System.out.println("Found");
-    //             } else {
-    //                 System.out.println("Not found");
-    //             }
-    //         } else {
-    //             System.out.println("File does not exist");
-    //         }
-    //     } catch (IOException ex) {
-    //         Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-    //     }
-    // }
-
-    // public static void aggregate(String fileName) {
-    //     try {
-    //         File file = new File(fileName);
-    //         if (file.exists()) {
-    //             Scanner sc = new Scanner(file);
-    //             ArrayList<String> list = new ArrayList<>();
-    //             while (sc.hasNextLine()) {
-    //                 list.add(sc.nextLine());
-    //             }
-    //             System.out.println("Enter the field");
-    //             String field = sc.next();
-    //             System.out.println("Enter the condition");
-    //             String condition = sc.next();
-    //             Pattern p = Pattern.compile(condition);
-    //             Matcher m = p.matcher(field);
-    //             if (m.find()) {
-    //                 System.out.println("Found");
-    //             } else {
-    //                 System.out.println("Not found");
-    //             }
-    //         } else {
-    //             System.out.println("File does not exist");
-    //         }
-    //     } catch (IOException ex) {
-    //         Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-    //     }
+            //             Display.displayFoodNamePartialString(con, args[3]);
+            //             codeforces.disconnect(conn);
+            //             break;
+                    
+            //             default:
+            //             printHelp();
+            //                 break;
+            //         }
+            //     break;
+            //     case "range":
+            //     switch (args[2]) {
+            //         case "-e":
+            //         Display.displayPriceEqual(con, args[3]);
+            //         codeforces.disconnect(conn);
+            //             break;
+            //         case "-g":
+            //         Display.displayPriceGreater(con, args[3]);
+            //         codeforces.disconnect(conn);
+            //         break;
+            //         case "-ge":
+            //         Display.displayPriceGreaterEqual(con, args[3]);
+            //         codeforces.disconnect(conn);
+            //         break;
+            //         case "-l":
+            //         Display.displayPriceLesser(con, args[3]);
+            //         codeforces.disconnect(conn);
+            //         break;
+            //         case "-le":
+            //         Display.displayPriceLesserEqual(con, args[3]);
+            //         codeforces.disconnect(conn);
+            //         break;
+            //         default:
+            //         printHelp();
+            //             break;
+            //     }
+            //     break;
+            //     default:
+            //         printHelp();
+    
+            //         break;
+            //     }
+            //     break;
+            // case "-i"
+            //     Insert.insertRecord(conn, args);
+            //     codeforces.disconnect(conn);
+            //     break;
+            // case "-count":
+            //     switch (args[1]) {
+    
+            //     case "cat":
+    
+            //         CountByCategory.count(conn);
+            //         codeforces.disconnect(conn);
+            //         break;
+            //     case "veg":
+    
+            //         CountByVeg.count(con);
+            //         codeforces.disconnect(conn);
+            //         break;
+            //     case "nonveg":
+    
+            //         CountByNonVeg.count(con);
+            //         codeforces.disconnect(conn);
+            //         break;
+            //     default:
+            //         printHelp();
+    
+            //         break;
+            //     }
+            //     break;
+            // case "-avg":
+            //     switch (args[1]) {
+    
+            //     case "cat":
+    
+            //         AvgByCategory.avg(con);
+            //         codeforces.disconnect(conn);
+            //         break;
+            //     case "veg":
+    
+            //         AvgByVeg.avg(con);
+            //         codeforces.disconnect(conn);
+            //         break;
+            //     case "nonveg":
+    
+            //         AvgByNonAvg.avg(con);
+            //         codeforces.disconnect(conn);
+            //         break;
+            //     default:
+            //         printHelp();
+    
+            //         break;
+            //     }
+    
+            //     break;
+            // case "-u":
+            //     switch (args[1]) {
+    
+            //     case "cat":
+    
+            //         Update.updateByCategory(con, args);
+            //         codeforces.disconnect(conn);
+            //         break;
+            //     case "veg":
+    
+            //         Update.updateByVeg(con, args);
+            //         codeforces.disconnect(conn);
+            //         break;
+            //     case "nonveg":
+    
+            //         Update.updateByNonVeg(con, args);
+            //         codeforces.disconnect(conn);
+            //         break;
+            //     case "id":
+    
+            //         Update.updateByFoodId(con, args);
+            //         codeforces.disconnect(conn);
+            //         break;
+            //     case "all":
+    
+            //         Update.updateAll(con, args);
+            //         codeforces.disconnect(conn);
+            //         break;
+            //     default:
+            //         printHelp();
+    
+            //         break;
+            //     }
+            //     break;
+            // case "-o":
+            //     switch (args[1]) {
+    
+            //     case "create":
+            //         OrderList.createOrder(con, args);
+            //         codeforces.disconnect(conn);
+            //         break;
+            //     case "show":
+    
+            //         OrderList.printOrder(con);
+            //         codeforces.disconnect(conn);
+            //         break;
+            //     case "showmore":
+    
+            //         OrderList.printOrderMore(con);
+            //         codeforces.disconnect(conn);
+            //         break;
+            //     case "cone":
+    
+            //         OrderList.cancelOrder(con,Integer.parseInt(args[2]));
+            //         codeforces.disconnect(conn);
+            //         break;
+            //     case "call":
+    
+            //         OrderList.cancelOrder(conn);
+            //         codeforces.disconnect(conn);
+            //         break;
+            //     default:
+            //         printHelp();
+    
+            //         break;
+            //     }
+            //     break;
+            // case "-d":
+    
+            //         Delete.deleteRecord(conn,args);
+            //         codeforces.disconnect(conn);
+            // break;
+            // case "-h":
+            //     printHelp();
+            //     break;
+            // default:
+            //     printHelp();
+            //     break;
+            }
     }
 }

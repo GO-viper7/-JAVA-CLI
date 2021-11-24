@@ -16,4 +16,13 @@ public class sqlconnectivity {
         }
         return null;
     }
+    public void disconnect(Connection conn) {
+        try {
+            if (conn != null) {
+                conn.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
