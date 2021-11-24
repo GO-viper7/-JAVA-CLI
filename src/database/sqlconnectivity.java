@@ -8,7 +8,7 @@ public class sqlconnectivity {
         try {
             String URL="jdbc:mysql://localhost:3306/codeforces";
             String USER="root";
-            String PASS="123456";
+            String PASS="7886";
             Connection con = DriverManager.getConnection(URL, USER, PASS);
             return con;
         } catch (SQLException e) {
