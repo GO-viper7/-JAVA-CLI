@@ -2,6 +2,7 @@ import database.*;
 import java.io.*;
 import java.sql.*;
 import queries.*;
+import operations.display.*;
 
 public class App {
     private static Connection conn = null;
@@ -30,28 +31,6 @@ public class App {
         }
     }
 
-    public static void loadData() {
-        try {
-            BufferedReader br = new BufferedReader(new FileReader("Problems.csv"));
-            String line = br.readLine();
-            while ((line = br.readLine()) != null) {
-                String[] problem = line.split(",");
-
-                String query = "insert into PROBLEM(problemid,author,problemrating,contestid) values (?, ?, ?, ?)";
-                PreparedStatement preparedStmt = conn.prepareStatement(query);
-                preparedStmt.setString(1, problem[0]);
-                preparedStmt.setString(2, problem[1]);
-                preparedStmt.setInt(3, Integer.parseInt(problem[2].substring(1, problem[2].length() - 1)));
-                preparedStmt.setInt(4, Integer.parseInt(problem[3].substring(1, problem[3].length() - 1)));
-                preparedStmt.execute();
-            }
-            System.out.println("DATA INSERTED");
-            br.close();
-        } catch (Exception e) {
-            System.out.println(e);
-            e.printStackTrace();
-        }
-    }
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         sqlconnectivity codeforces = new sqlconnectivity();
@@ -61,28 +40,25 @@ public class App {
             System.out.println(e);
             e.printStackTrace();
         }
-        createTables();
         switch (args[0]) {
-        case "-l":
-            loadData();
+        case "-load":
+            Data.loadProblemsData(conn);
+            Data.loadSubmissionsData(conn);
             codeforces.disconnect(conn);
             break;
+        case "-clearData":
+            createTables();
+            codeforces.disconnect(conn);
+            break;    
         case "-s":
             switch (args[1]) {
                 case "all":
-                    Display.displayAll(con);
+                    Display.displayAll(conn);
                     codeforces.disconnect(conn);
                     break;
-        // case "cat":
-        // Display.displayCatagories(con, args[2]);
-        // codeforces.disconnect(conn);
-        // break;
-        // case "type":
-        // Display.displayType(con, args[2]);
-        // codeforces.disconnect(conn);
-        // break;
+            }
         // case "fl":
-        // switch (args[2]) {
+            // switch (args[2]) {
         // case "cat":
 
         // Display.displayCatagoriesFirstLetter(con, args[3]);
