@@ -16,7 +16,57 @@ public class Data {
                 preparedStmt.setInt(3, Integer.parseInt(problem[2]));
                 preparedStmt.setInt(4, Integer.parseInt(problem[3]));
                 preparedStmt.execute();
-            } // bruh ids are strings
+            } 
+            System.out.println("DATA INSERTED");
+            br.close();
+        } catch (Exception e) {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+    }
+
+    public static void loadUsersData(Connection conn) {
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("Users.csv"));
+            String line = br.readLine();
+            while ((line = br.readLine()) != null) {
+                String[] user = line.split(",");
+
+                String query = "insert into USER(userid,username,userrating,usercountry) values (?, ?, ?, ?, ?, ?, ?)";
+                PreparedStatement preparedStmt = conn.prepareStatement(query);
+                preparedStmt.setString(1, user[0]);
+                preparedStmt.setInt(2, Integer.parseInt(user[1]));
+                preparedStmt.setInt(3, Integer.parseInt(user[2]));
+                preparedStmt.setString(4, user[3]);
+                preparedStmt.setString(5, user[4]);
+                preparedStmt.setString(6, user[5]);
+                preparedStmt.setInt(7, Integer.parseInt(user[6]));
+                preparedStmt.execute();
+            }
+            System.out.println("DATA INSERTED");
+            br.close();
+        } catch (Exception e) {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+    }
+
+    public static void loadContestsData(Connection conn) {
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("Contests.csv"));
+            String line = br.readLine();
+            while ((line = br.readLine()) != null) {
+                String[] contest = line.split(",");
+
+                String query = "insert into CONTEST(contestid,contestname,contestdate,contestrating) values (?, ?, ?, ?, ?)";
+                PreparedStatement preparedStmt = conn.prepareStatement(query);
+                preparedStmt.setInt(1, Integer.parseInt(contest[0]));
+                preparedStmt.setString(2, contest[1]);
+                preparedStmt.setInt(3, Integer.parseInt(contest[2]));
+                preparedStmt.setString(4, contest[3]);
+                preparedStmt.setString(5, contest[4]);
+                preparedStmt.execute();
+            } 
             System.out.println("DATA INSERTED");
             br.close();
         } catch (Exception e) {
@@ -34,9 +84,9 @@ public class Data {
 
                 String query = "insert into SUBMISSION(submissionid,problemid,author,submissionrating,contestid) values (?, ?, ?, ?, ?)";
                 PreparedStatement preparedStmt = conn.prepareStatement(query);
-                preparedStmt.setString(1, submission[0]);
-                preparedStmt.setString(2, submission[1]);
-                preparedStmt.setString(3, submission[2]);
+                preparedStmt.setInt(1, Integer.parseInt(submission[0]));
+                preparedStmt.setInt(2, Integer.parseInt(submission[1]));
+                preparedStmt.setInt(3, Integer.parseInt(submission[2]));
                 preparedStmt.setString(4, submission[3]);
                 preparedStmt.setString(5, submission[4]);
                 preparedStmt.execute();

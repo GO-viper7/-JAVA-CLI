@@ -11,9 +11,10 @@ public class Display {
             if (result1.next() == false) {
                 System.out.println("No Result from users");
             } else {
+                System.out.println("Users Table :\n");
 
                 do {
-                    System.out.printf("%-15s%-10d%-10d%-15s%-10d%-10d%-15s\n", result1.getString(1), result1.getInt(2),
+                    System.out.printf("%-15s%-10d%-10d%-15s%-15s%-15s%-10d\n", result1.getString(1), result1.getInt(2),
                             result1.getInt(3), result1.getString(4), result1.getInt(5), result1.getInt(6),
                             result1.getString(7));
                 } while (result1.next());
@@ -25,6 +26,8 @@ public class Display {
             if (result2.next() == false) {
                 System.out.println("No Result from contests");
             } else {
+
+                System.out.println("Contests Table :\n");
 
                 do {
                     System.out.printf("%-10d%-15s%-10d%-15s%-15s\n", result2.getInt(1), result2.getString(2),
@@ -39,6 +42,8 @@ public class Display {
                 System.out.println("No Result from problems");
             } else {
 
+                System.out.println("Problems Table :\n");
+
                 do {
                     System.out.printf("%-15s%-15s%-10d%-10d\n", result3.getString(1), result3.getString(2),
                             result3.getInt(3), result3.getInt(4));
@@ -52,8 +57,10 @@ public class Display {
                 System.out.println("No Result from submissions");
             } else {
 
+                System.out.println("Submissions Table :\n");
+
                 do {
-                    System.out.printf("%-10d%-10d%-15s%-15s%-15s\n", result4.getInt(1), result4.getInt(2),
+                    System.out.printf("%-10d%-10d%-10d%-15s%-15s\n", result4.getInt(1), result4.getInt(2),
                             result4.getString(3), result4.getString(4), result4.getString(5));
                 } while (result4.next());
             }
