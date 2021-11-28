@@ -33,19 +33,6 @@ public class Display {
             }
             System.out.printf("\n\n");
 
-            ResultSet result3 = st.executeQuery("select * from problem");
-
-            if (result3.next() == false) {
-                System.out.println("No Result from problems");
-            } else {
-
-                do {
-                    System.out.printf("%-15s%-15s%-10d%-10d\n", result3.getString(1), result3.getString(2),
-                            result3.getInt(3), result3.getInt(4));
-                } while (result3.next());
-            }
-            System.out.printf("\n");
-
             ResultSet result4 = st.executeQuery("select * from submission");
 
             if (result4.next() == false) {
