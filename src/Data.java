@@ -16,7 +16,7 @@ public class Data {
                 preparedStmt.setInt(3, Integer.parseInt(problem[2]));
                 preparedStmt.setInt(4, Integer.parseInt(problem[3]));
                 preparedStmt.execute();
-            } // bruh ids are strings
+            } 
             System.out.println("DATA INSERTED");
             br.close();
         } catch (Exception e) {
