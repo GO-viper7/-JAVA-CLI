@@ -54,3 +54,147 @@ public class Submission {
             System.out.println("Wrong command\nType \"-h\" to get help");
         }
     }
+
+    public static void updateVerdictBySub(Connection con, String SubmissionID, String ver) {
+        try {
+            String query = "update Submission set verdict = ? where SubmissionID = ? ";
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+            preparedStmt.setString(1, ver);
+            preparedStmt.setString(2, SubmissionID);
+            int rs = preparedStmt.executeUpdate();
+            if (rs == 0) {
+                System.out.println("Update failed!!!");
+            } else {
+                System.out.println("Updated successfully");
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Wrong command\nType \"-h\" to get help");
+        }
+    }
+
+    public static void updateVerdictByProb(Connection con, String ProblemID, String ver) {
+        try {
+            String query = "update Submission set verdict = ? where ProblemID = ? ";
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+            preparedStmt.setString(1, ver);
+            preparedStmt.setString(2, ProblemID);
+            int rs = preparedStmt.executeUpdate();
+            if (rs == 0) {
+                System.out.println("Update failed!!!");
+            } else {
+                System.out.println("Updated successfully");
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Wrong command\nType \"-h\" to get help");
+        }
+    }
+
+    public static void searchBySubId(Connection con, String id) {
+        try {
+            String query = "select * from Submission where SubmissionID = ?";
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+            preparedStmt.setString(1, id);
+            ResultSet rs = preparedStmt.executeQuery();
+            if (rs.next() == false) {
+                System.out.println("No Result from Submissions");
+            } else {
+                printTable(rs);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Wrong command\nType \"-h\" to get help");
+        }
+    }
+
+    public static void searchByConId(Connection con, String id) {
+        try {
+            String query = "select * from Submission where ContestID = ?";
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+            preparedStmt.setString(1, id);
+            ResultSet rs = preparedStmt.executeQuery();
+            if (rs.next() == false) {
+                System.out.println("No Result from Submissions");
+            } else {
+                printTable(rs);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Wrong command\nType \"-h\" to get help");
+        }
+    }
+
+    public static void searchByProbId(Connection con, String id) {
+        try {
+            String query = "select * from Submission where ProblemID = ?";
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+            preparedStmt.setString(1, id);
+            ResultSet rs = preparedStmt.executeQuery();
+            if (rs.next() == false) {
+                System.out.println("No Result from Submissions");
+            } else {
+                printTable(rs);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Wrong command\nType \"-h\" to get help");
+        }
+    }
+
+    public static void deleteSubBySub(Connection con, String id) {
+        try {
+            String query = "delete from user where SubmissionID=?";
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+            preparedStmt.setString(1, id);
+            int rs = preparedStmt.executeUpdate();
+            if (rs == 0) {
+                System.out.println("Id " + id + " is not a Submission");
+            } else {
+                System.out.println("Deleted");
+
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Wrong command\nType \"-h\" to get help");
+        }
+    }
+
+    public static void deleteSubByCon(Connection con, String id) {
+        try {
+            String query = "delete from user where ContestID=?";
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+            preparedStmt.setString(1, id);
+            int rs = preparedStmt.executeUpdate();
+            if (rs == 0) {
+                System.out.println("Id " + id + " is not a Submission");
+            } else {
+                System.out.println("Deleted");
+                
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Wrong command\nType \"-h\" to get help");
+        }
+    }
+
+    public static void deleteSubByProb(Connection con, String id) {
+        try {
+            String query = "delete from user where ProblemID=?";
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+            preparedStmt.setString(1, id);
+            int rs = preparedStmt.executeUpdate();
+            if (rs == 0) {
+                System.out.println("Id " + id + " is not a Submission");
+            } else {
+                System.out.println("Deleted");
+                
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Wrong command\nType \"-h\" to get help");
+        }
+    }
+
+
+}

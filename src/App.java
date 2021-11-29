@@ -258,20 +258,70 @@ public class App {
                     case "sort":
                         switch (args[2]) {
                             case "byId":
-                                queries.User.sortProblems(conn, "UserId");
+                                queries.User.sortUsers(conn, "UserId");
                                 break;
                             case "byRat":
-                                queries.User.sortProblems(conn, "Rating");
+                                queries.User.sortUsers(conn, "Rating");
                                 break;
                             case "byMaxRat":
-                                queries.User.sortProblems(conn, "MaxRating");
+                                queries.User.sortUsers(conn, "MaxRating");
                                 break;
                             case "byContri":
-                                queries.User.sortProblems(conn, "Contribution");
+                                queries.User.sortUsers(conn, "Contribution");
+                                break;
+                        }
+                        break;
+                    }
+                
+            case "-submission":
+                switch (args[1]) {
+                    case "disp":
+                        queries.Submission.displayAll(conn);
+                        codeforces.disconnect(conn);
+                        break;
+                    case "insert":
+                        System.out.println("Write the tuple you want to insert");
+                        Scanner sc = new Scanner(System.in);
+                        String tuple = sc.nextLine();
+                        queries.Submission.insertSubmissions(conn, tuple);
+                        sc.close();
+                        break;
+                    case "delete":
+                        case "bysub":
+                            queries.Submission.deleteSubBySub(conn, args[2]);
+                            break;
+                        case "byCon":
+                            queries.Submission.deleteSubByCon(conn, args[2]);
+                            break;
+                        case "byProb":
+                            queries.Submission.deleteSubByProb(conn, args[2]);
+                            break;
+                    case "update":
+                        switch (args[2]) {
+                            case "bySub":
+                                queries.Submission.updateVerdictBySub(conn, args[3], args[4]);
+                                break;
+                            case "byProb":
+                                queries.Submission.updateVerdictByProb(conn, args[3], args[4]);
                                 break;
                         }
                         break;
 
+                    case "search":
+                        switch (args[2]) {
+                            case "bySub":
+                                queries.Submission.searchBySubId(conn, args[3]);
+                                break;
+                            case "byCon":
+                                queries.Submission.searchByConId(conn, args[3]);
+                                break;
+                            case "byProb":
+                                queries.Submission.searchByProbId(conn, args[3]);
+                                break;
+                        }
+                        break;
+                   }
+                   
                         // case "fl":
                         // switch (args[2]) {
                         // case "cat":
@@ -471,7 +521,7 @@ public class App {
                         // default:
                         // printHelp();
                         // break;
-                }
+                
         }
     }
 }
