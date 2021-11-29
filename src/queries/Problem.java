@@ -4,18 +4,30 @@ import java.sql.*;
 
 public class Problem {
 
+    public static void printTable(ResultSet rs) {
+        try {
+            System.out.println("+---------------+---------------+---------------+----------+");
+            System.out.println("|ProblemID      |Author         |ProblemRating  |ContestID |");
+            System.out.println("+---------------+---------------+---------------+----------+");
+            
+            do {
+                System.out.printf("|%-15s|%-15s|%-15d|%-10d|\n", rs.getString(1), rs.getString(2),
+                        rs.getInt(3), rs.getInt(4));
+            } while (rs.next());
+            System.out.println("+---------------+---------------+---------------+----------+");
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
     public static void displayAll(Connection con) {
         try {
             Statement st = con.createStatement();
-            ResultSet result3 = st.executeQuery("select * from problem");
-            if (result3.next() == false) {
+            ResultSet rs = st.executeQuery("select * from problem");
+            if (rs.next() == false) {
                 System.out.println("No Result from problems");
             } else {
-
-                do {
-                    System.out.printf("%-15s%-15s%-10d%-10d\n", result3.getString(1), result3.getString(2),
-                            result3.getInt(3), result3.getInt(4));
-                } while (result3.next());
+                printTable(rs);
             }
         } catch (SQLException e) {
             System.out.println(e);
@@ -39,20 +51,6 @@ public class Problem {
         }
     }
 
-    public static void searchProblems(Connection con) {
-        try {
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("select * from account");
-            while (rs.next()) {
-                System.out.println(rs.getString("account_number") + " " + rs.getDouble("balance"));
-            }
-            stmt.close();
-            con.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     public static void updateRatingByContest(Connection con, String ContestID, String Rating) {
         try {
             String query = "update problem set ProblemRating = ? where ContestID = ? ";
@@ -68,7 +66,6 @@ public class Problem {
         } catch (Exception e) {
             System.out.println(e);
             System.out.println("Wrong command\nType \"-h\" to get help");
-
         }
     }
 
@@ -82,7 +79,7 @@ public class Problem {
             if (rs == 0) {
                 System.out.println("Update failed!!!");
             } else {
-                System.out.println("Updated");
+                System.out.println("Updated successfully");
             }
         } catch (Exception e) {
             System.out.println(e);
@@ -99,10 +96,7 @@ public class Problem {
             if (rs.next() == false) {
                 System.out.println("No Result from problems");
             } else {
-                do {
-                    System.out.printf("%-15s%-15s%-10d%-10d\n", rs.getString(1), rs.getString(2),
-                            rs.getInt(3), rs.getInt(4));
-                } while (rs.next());
+                printTable(rs);
             }
         } catch (Exception e) {
             System.out.println(e);
@@ -110,19 +104,16 @@ public class Problem {
         }
     }
 
-    public static void searchByContest(Connection con, String ContestID) {
+    public static void searchByContest(Connection con, String ContestID, String operator) {
         try {
-            String query = "select * from problem where ContestID = ?";
+            String query = "select * from problem where ContestID "+ operator + " ?";
             PreparedStatement preparedStmt = con.prepareStatement(query);
             preparedStmt.setInt(1, Integer.parseInt(ContestID));
             ResultSet rs = preparedStmt.executeQuery();
             if (rs.next() == false) {
                 System.out.println("No Result from problems");
             } else {
-                do {
-                    System.out.printf("%-15s%-15s%-10d%-10d\n", rs.getString(1), rs.getString(2),
-                            rs.getInt(3), rs.getInt(4));
-                } while (rs.next());
+                printTable(rs);
             }
         } catch (Exception e) {
             System.out.println(e);
@@ -130,19 +121,16 @@ public class Problem {
         }
     }
 
-    public static void searchByRating(Connection con, String Rating) {
+    public static void searchByRating(Connection con, String Rating,String operator) {
         try {
-            String query = "select * from problem where ProblemRating = ?";
+            String query = "select * from problem where ProblemRating "+ operator + " ?";
             PreparedStatement preparedStmt = con.prepareStatement(query);
             preparedStmt.setInt(1, Integer.parseInt(Rating));
             ResultSet rs = preparedStmt.executeQuery();
             if (rs.next() == false) {
                 System.out.println("No Result from problems");
             } else {
-                do {
-                    System.out.printf("%-15s%-15s%-10d%-10d\n", rs.getString(1), rs.getString(2),
-                            rs.getInt(3), rs.getInt(4));
-                } while (rs.next());
+                printTable(rs);
             }
         } catch (Exception e) {
             System.out.println(e);
@@ -159,10 +147,7 @@ public class Problem {
             if (rs.next() == false) {
                 System.out.println("No Result from problems");
             } else {
-                do {
-                    System.out.printf("%-15s%-15s%-10d%-10d\n", rs.getString(1), rs.getString(2),
-                            rs.getInt(3), rs.getInt(4));
-                } while (rs.next());
+                printTable(rs);
             }
         } catch (Exception e) {
             System.out.println(e);
@@ -177,12 +162,28 @@ public class Problem {
             preparedStmt.setString(1, id);
             int rs = preparedStmt.executeUpdate();
             if (rs == 0) {
-                System.out.println("Id " + id + " not presnt in menu");
+                System.out.println("Id " + id + " is not a problem");
             } else {
                 System.out.println("Deleted");
 
             }
         } catch (Exception e) {
+            System.out.println("Wrong command\nType \"-h\" to get help");
+        }
+    }
+
+    public static void sortProblems(Connection con, String sort) {
+        try {
+            String query = "select * from problem order by " + sort;
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+            ResultSet rs = preparedStmt.executeQuery();
+            if (rs.next() == false) {
+                System.out.println("No Result from problems");
+            } else {
+                printTable(rs);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
             System.out.println("Wrong command\nType \"-h\" to get help");
         }
     }

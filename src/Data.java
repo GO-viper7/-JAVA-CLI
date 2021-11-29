@@ -32,15 +32,16 @@ public class Data {
             while ((line = br.readLine()) != null) {
                 String[] user = line.split(",");
 
-                String query = "insert into USER(userid,username,userrating,usercountry) values (?, ?, ?, ?, ?, ?, ?)";
+                String query = "insert into USERS(userid,username,Rating,MaxRating,Organisation,City,Country,Contribution) values (?, ?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement preparedStmt = conn.prepareStatement(query);
                 preparedStmt.setString(1, user[0]);
-                preparedStmt.setInt(2, Integer.parseInt(user[1]));
+                preparedStmt.setString(2, user[1]);
                 preparedStmt.setInt(3, Integer.parseInt(user[2]));
-                preparedStmt.setString(4, user[3]);
+                preparedStmt.setInt(4, Integer.parseInt(user[3]));
                 preparedStmt.setString(5, user[4]);
                 preparedStmt.setString(6, user[5]);
-                preparedStmt.setInt(7, Integer.parseInt(user[6]));
+                preparedStmt.setString(7, user[6]);
+                preparedStmt.setInt(8, Integer.parseInt(user[7]));
                 preparedStmt.execute();
             }
             System.out.println("DATA INSERTED");

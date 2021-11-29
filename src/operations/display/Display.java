@@ -5,22 +5,8 @@ import java.sql.*;
 public class Display {
     public static void displayAll(Connection con) {
         try {
+            
             Statement st = con.createStatement();
-            ResultSet result1 = st.executeQuery("select * from users");
-
-            if (result1.next() == false) {
-                System.out.println("No Result from users");
-            } else {
-                System.out.println("Users Table :\n");
-
-                do {
-                    System.out.printf("%-15s%-10d%-10d%-15s%-15s%-15s%-10d\n", result1.getString(1), result1.getInt(2),
-                            result1.getInt(3), result1.getString(4), result1.getInt(5), result1.getInt(6),
-                            result1.getString(7));
-                } while (result1.next());
-            }
-            System.out.printf("\n");
-
             ResultSet result2 = st.executeQuery("select * from contest");
 
             if (result2.next() == false) {
