@@ -2,7 +2,7 @@ import database.*;
 import java.io.*;
 import java.sql.*;
 import queries.*;
-import operations.display.*;
+import operations.*;
 import java.util.Scanner;
 
 public class App {
@@ -49,8 +49,11 @@ public class App {
             case "-load":
                 Data.loadProblemsData(conn);
                 Data.loadUsersData(conn);
+                Data.loadSubmissionsData(conn);
                 codeforces.disconnect(conn);
                 break;
+            case "-displayall":
+                operations.Display.displayAll(conn);
             case "-problem":
                 switch (args[1]) {
                     case "disp":

@@ -32,7 +32,7 @@ public class Data {
             while ((line = br.readLine()) != null) {
                 String[] user = line.split(",");
 
-                String query = "insert into USERS(userid,username,Rating,MaxRating,Organisation,City,Country,Contribution) values (?, ?, ?, ?, ?, ?, ?, ?)";
+                String query = "insert into USER(userid,username,Rating,MaxRating,Organisation,City,Country,Contribution) values (?, ?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement preparedStmt = conn.prepareStatement(query);
                 preparedStmt.setString(1, user[0]);
                 preparedStmt.setString(2, user[1]);
@@ -83,11 +83,11 @@ public class Data {
             while ((line = br.readLine()) != null) {
                 String[] submission = line.split(",");
 
-                String query = "insert into SUBMISSION(submissionid,problemid,author,submissionrating,contestid) values (?, ?, ?, ?, ?)";
+                String query = "insert into SUBMISSION(submissionid,contestid,problemid,username,verdict) values (?, ?, ?, ?, ?)";
                 PreparedStatement preparedStmt = conn.prepareStatement(query);
                 preparedStmt.setInt(1, Integer.parseInt(submission[0]));
                 preparedStmt.setInt(2, Integer.parseInt(submission[1]));
-                preparedStmt.setInt(3, Integer.parseInt(submission[2]));
+                preparedStmt.setString(3, submission[2]);
                 preparedStmt.setString(4, submission[3]);
                 preparedStmt.setString(5, submission[4]);
                 preparedStmt.execute();

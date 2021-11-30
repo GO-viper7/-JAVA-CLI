@@ -10,9 +10,9 @@ public class Submission {
             System.out.println("|SubmissionID   |ContestID      |ProblemID |Username  |Verdict    |");
             System.out.println("+---------------+---------------+----------+----------+-----------+");
             do {
-                System.out.printf("|%-15s|%-15s|%-10d|%-10d|%-11s|\n", rs.getString(1), rs.getString(2),
-                        rs.getInt(3),
-                        rs.getInt(4));
+                System.out.printf("|%-15d|%-15d|%-10s|%-10s|%-11s|\n", rs.getInt(1), rs.getInt(2),
+                        rs.getString(3),
+                        rs.getString(4),rs.getString(5));
             } while (rs.next());
             System.out.println("+---------------+---------------+----------+----------+-----------+");
         } catch (SQLException e) {
