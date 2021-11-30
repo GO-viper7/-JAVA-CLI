@@ -2,61 +2,65 @@ package queries;
 
 import java.sql.*;
 
-public class Problem {
+public class Submission {
 
     public static void printTable(ResultSet rs) {
         try {
-            System.out.println("+---------------+---------------+---------------+----------+");
-            System.out.println("|ProblemID      |Author         |ProblemRating  |ContestID |");
-            System.out.println("+---------------+---------------+---------------+----------+");
-            
+            System.out.println("+---------------+---------------+----------+----------+-----------+");
+            System.out.println("|SubmissionID   |ContestID      |ProblemID |Username  |Verdict    |");
+            System.out.println("+---------------+---------------+----------+----------+-----------+");
             do {
-                System.out.printf("|%-15s|%-15s|%-15d|%-10d|\n", rs.getString(1), rs.getString(2),
-                        rs.getInt(3), rs.getInt(4));
+                System.out.printf("|%-15d|%-15d|%-10s|%-10s|%-11s|\n", rs.getInt(1), rs.getInt(2),
+                        rs.getString(3),
+                        rs.getString(4),rs.getString(5));
             } while (rs.next());
-            System.out.println("+---------------+---------------+---------------+----------+");
+            System.out.println("+---------------+---------------+----------+----------+-----------+");
         } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
 
     public static void displayAll(Connection con) {
-        try {
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("select * from problem");
-            if (rs.next() == false) {
-                System.out.println("No Result from problems");
-            } else {
-                printTable(rs);
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-            System.out.println("Wrong command\nType \"-h\" to get Help Menu");
-        }
-    }
+            try {
+                Statement st = con.createStatement();
+                ResultSet result1 = st.executeQuery("select * from submission");
 
-    public static void insertProblems(Connection con, String tuple) {
+                if (result1.next() == false) {
+                    System.out.println("No Result from Submissions");
+                } else {
+                    System.out.println("Submissions Table :\n");
+                    printTable(result1);
+                }
+                System.out.printf("\n");
+            } catch (SQLException e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+        }
+
+    public static void insertSubmissions(Connection con, String tuple) {
         try {
             String[] args = tuple.split(" ");
-            String query = " insert into Problem(ProblemID,Author,ProblemRating,ContestID) values (?, ?, ?, ?)";
+            String query = " insert into Submission(SubmissionID,ContestID,ProblemID,UserName,Verdict) values (?, ?, ?, ?, ?)";
             PreparedStatement preparedStmt = con.prepareStatement(query);
             preparedStmt.setString(1, args[0]);
             preparedStmt.setString(2, args[1]);
             preparedStmt.setInt(3, Integer.parseInt(args[2]));
             preparedStmt.setInt(4, Integer.parseInt(args[3]));
+            preparedStmt.setString(5, args[4]);
             preparedStmt.execute();
             System.out.println("Inserted successfully");
         } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
             System.out.println("Wrong command\nType \"-h\" to get help");
         }
     }
 
-    public static void updateRatingByContest(Connection con, String ContestID, String Rating) {
+    public static void updateVerdictBySub(Connection con, String SubmissionID, String ver) {
         try {
-            String query = "update problem set ProblemRating = ? where ContestID = ? ";
+            String query = "update Submission set verdict = ? where SubmissionID = ? ";
             PreparedStatement preparedStmt = con.prepareStatement(query);
-            preparedStmt.setInt(1, Integer.parseInt(Rating));
-            preparedStmt.setInt(2, Integer.parseInt(ContestID));
+            preparedStmt.setString(1, ver);
+            preparedStmt.setString(2, SubmissionID);
             int rs = preparedStmt.executeUpdate();
             if (rs == 0) {
                 System.out.println("Update failed!!!");
@@ -69,12 +73,12 @@ public class Problem {
         }
     }
 
-    public static void updateRating(Connection con, String id, String rating) {
+    public static void updateVerdictByProb(Connection con, String ProblemID, String ver) {
         try {
-            String query = "update problem set ProblemRating = ? where ProblemID =?";
+            String query = "update Submission set verdict = ? where ProblemID = ? ";
             PreparedStatement preparedStmt = con.prepareStatement(query);
-            preparedStmt.setInt(1, Integer.parseInt(rating));
-            preparedStmt.setString(2, id);
+            preparedStmt.setString(1, ver);
+            preparedStmt.setString(2, ProblemID);
             int rs = preparedStmt.executeUpdate();
             if (rs == 0) {
                 System.out.println("Update failed!!!");
@@ -87,14 +91,14 @@ public class Problem {
         }
     }
 
-    public static void searchById(Connection con, String id) {
+    public static void searchBySubId(Connection con, String id) {
         try {
-            String query = "select * from problem where ProblemID = ?";
+            String query = "select * from Submission where SubmissionID = ?";
             PreparedStatement preparedStmt = con.prepareStatement(query);
             preparedStmt.setString(1, id);
             ResultSet rs = preparedStmt.executeQuery();
             if (rs.next() == false) {
-                System.out.println("No Result from problems");
+                System.out.println("No Result from Submissions");
             } else {
                 printTable(rs);
             }
@@ -104,14 +108,14 @@ public class Problem {
         }
     }
 
-    public static void searchByContest(Connection con, String ContestID, String operator) {
+    public static void searchByConId(Connection con, String id) {
         try {
-            String query = "select * from problem where ContestID "+ operator + " ?";
+            String query = "select * from Submission where ContestID = ?";
             PreparedStatement preparedStmt = con.prepareStatement(query);
-            preparedStmt.setInt(1, Integer.parseInt(ContestID));
+            preparedStmt.setString(1, id);
             ResultSet rs = preparedStmt.executeQuery();
             if (rs.next() == false) {
-                System.out.println("No Result from problems");
+                System.out.println("No Result from Submissions");
             } else {
                 printTable(rs);
             }
@@ -121,14 +125,14 @@ public class Problem {
         }
     }
 
-    public static void searchByRating(Connection con, String Rating,String operator) {
+    public static void searchByProbId(Connection con, String id) {
         try {
-            String query = "select * from problem where ProblemRating "+ operator + " ?";
+            String query = "select * from Submission where ProblemID = ?";
             PreparedStatement preparedStmt = con.prepareStatement(query);
-            preparedStmt.setInt(1, Integer.parseInt(Rating));
+            preparedStmt.setString(1, id);
             ResultSet rs = preparedStmt.executeQuery();
             if (rs.next() == false) {
-                System.out.println("No Result from problems");
+                System.out.println("No Result from Submissions");
             } else {
                 printTable(rs);
             }
@@ -138,54 +142,59 @@ public class Problem {
         }
     }
 
-    public static void searchByAuthor(Connection con, String Author) {
+    public static void deleteSubBySub(Connection con, String id) {
         try {
-            String query = "select * from problem where Author = ?";
-            PreparedStatement preparedStmt = con.prepareStatement(query);
-            preparedStmt.setString(1, Author);
-            ResultSet rs = preparedStmt.executeQuery();
-            if (rs.next() == false) {
-                System.out.println("No Result from problems");
-            } else {
-                printTable(rs);
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-            System.out.println("Wrong command\nType \"-h\" to get help");
-        }
-    }
-
-    public static void deleteProblems(Connection con, String id) {
-        try {
-            String query = "delete from problem where ProblemID=?";
+            String query = "delete from user where SubmissionID=?";
             PreparedStatement preparedStmt = con.prepareStatement(query);
             preparedStmt.setString(1, id);
             int rs = preparedStmt.executeUpdate();
             if (rs == 0) {
-                System.out.println("Id " + id + " is not a problem");
+                System.out.println("Id " + id + " is not a Submission");
             } else {
                 System.out.println("Deleted");
 
             }
         } catch (Exception e) {
+            System.out.println(e);
             System.out.println("Wrong command\nType \"-h\" to get help");
         }
     }
 
-    public static void sortProblems(Connection con, String sort) {
+    public static void deleteSubByCon(Connection con, String id) {
         try {
-            String query = "select * from problem order by " + sort;
+            String query = "delete from user where ContestID=?";
             PreparedStatement preparedStmt = con.prepareStatement(query);
-            ResultSet rs = preparedStmt.executeQuery();
-            if (rs.next() == false) {
-                System.out.println("No Result from problems");
+            preparedStmt.setString(1, id);
+            int rs = preparedStmt.executeUpdate();
+            if (rs == 0) {
+                System.out.println("Id " + id + " is not a Submission");
             } else {
-                printTable(rs);
+                System.out.println("Deleted");
+                
             }
         } catch (Exception e) {
             System.out.println(e);
             System.out.println("Wrong command\nType \"-h\" to get help");
         }
     }
+
+    public static void deleteSubByProb(Connection con, String id) {
+        try {
+            String query = "delete from user where ProblemID=?";
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+            preparedStmt.setString(1, id);
+            int rs = preparedStmt.executeUpdate();
+            if (rs == 0) {
+                System.out.println("Id " + id + " is not a Submission");
+            } else {
+                System.out.println("Deleted");
+                
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Wrong command\nType \"-h\" to get help");
+        }
+    }
+
 
 }

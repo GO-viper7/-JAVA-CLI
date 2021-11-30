@@ -2,7 +2,7 @@ package queries;
 
 import java.sql.*;
 
-public class Contests {
+public class Contest {
     public void createContests(Connection con){
         try{
             Statement stmt = con.createStatement();
