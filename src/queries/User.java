@@ -2,6 +2,8 @@ package queries;
 
 import java.sql.*;
 
+import util.DisplayInterface;
+
 public class User {
 
     public static void printTable(ResultSet rs) {
@@ -21,20 +23,10 @@ public class User {
     }
 
     public static void displayAll(Connection con) {
-        try {
-            Statement st = con.createStatement();
-            ResultSet result1 = st.executeQuery("select * from user");
-
-            if (result1.next() == false) {
-                System.out.println("No Result from users");
-            } else {
-                System.out.println("Users Table :\n");
-                printTable(result1);
-            }
-            System.out.printf("\n");
-        } catch (SQLException e) {
-            System.out.println("Error: " + e.getMessage());
-        }
+        ResultSet rs = DisplayInterface.displayTable(con,"User");
+        if(rs==null)
+            return;
+        printTable(rs);
     }
 
     public static void insertUsers(Connection con, String tuple) {

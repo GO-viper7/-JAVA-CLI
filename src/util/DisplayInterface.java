@@ -1,4 +1,4 @@
-package create;
+package util;
 import java.sql.*;
 
 public interface DisplayInterface {
@@ -8,7 +8,7 @@ public interface DisplayInterface {
             String query = "SELECT * FROM " + tableName;
             ResultSet rs = st.executeQuery(query);
             if (rs.next() == false) {
-                System.out.println("No Result from problems");
+                System.out.println("No Result from "+tableName);
             } else {
                 return rs;
             }

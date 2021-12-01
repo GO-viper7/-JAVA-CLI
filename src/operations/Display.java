@@ -5,11 +5,7 @@ import java.sql.*;
 public class Display {
     public static void displayAll(Connection con) {
         try {
-
             Statement st = con.createStatement();
-
-
-
             ResultSet result1 = st.executeQuery("select * from Problem");
             if (result1.next() == false) {
                 System.out.println("No Result from Problems");
@@ -28,11 +24,6 @@ public class Display {
                 System.out.printf("\n\n");
              }
 
-
-
-
-
-
             ResultSet result2 = st.executeQuery("select * from User");
             if (result2.next() == false) {
                 System.out.println("No Result from Useresult4");
@@ -50,14 +41,6 @@ public class Display {
                 System.out.printf("\n\n");
             }
 
-
-
-
-
-
-
-
-            
             // ResultSet result3 = st.executeQuery("select * from contest");
 
             // if (result3.next() == false) {
@@ -72,14 +55,6 @@ public class Display {
             //     } while (result3.next());
             // }
             // System.out.printf("\n\n");
-
-
-
-
-
-
-
-
 
             ResultSet result4 = st.executeQuery("select * from submission");
 
@@ -97,22 +72,10 @@ public class Display {
                 } while (result4.next());
                 System.out.println("+---------------+---------------+----------+----------+-----------+");
                 System.out.printf("\n\n");
-            }
-            
-            
+            }          
         } catch (Exception e) {
              System.out.println(e);
              System.out.println("Wrong command\nType \"-h\" to get Help Menu");
         }
-            
-            
-            
-            
-            
-            
-            
-            
-            
-
     }
 }

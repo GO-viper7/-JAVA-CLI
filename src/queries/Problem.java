@@ -2,7 +2,7 @@ package queries;
 
 import java.sql.*;
 
-import create.DisplayInterface;
+import util.DisplayInterface;
 
 public class Problem implements DisplayInterface{
 
