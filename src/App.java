@@ -143,7 +143,7 @@ public class App {
                         }
                         break;
                 }
-
+                break;
             case "-user":
                 switch (args[1]) {
                     case "disp":
@@ -201,7 +201,7 @@ public class App {
                                     case "-gte":
                                         queries.User.searchByRating(conn, args[4], ">=");
                                         break;
-                                     case "eq":
+                                    case "eq":
                                         queries.User.searchByRating(conn, args[4], "=");
                                         break;
                                 }
@@ -220,7 +220,7 @@ public class App {
                                     case "-gte":
                                         queries.User.searchByMaxRating(conn, args[4], ">=");
                                         break;
-                                     case "eq":
+                                    case "eq":
                                         queries.User.searchByMaxRating(conn, args[4], "=");
                                         break;
                                 }
@@ -251,7 +251,7 @@ public class App {
                                     case "-gte":
                                         queries.User.searchByContribution(conn, args[4], ">=");
                                         break;
-                                     case "eq":
+                                    case "eq":
                                         queries.User.searchByContribution(conn, args[4], "=");
                                         break;
                                 }
@@ -274,8 +274,8 @@ public class App {
                                 break;
                         }
                         break;
-                    }
-                
+                }
+                break;
             case "-submission":
                 switch (args[1]) {
                     case "disp":
@@ -290,15 +290,15 @@ public class App {
                         sc.close();
                         break;
                     case "delete":
-                        case "bysub":
-                            queries.Submission.deleteSubBySub(conn, args[2]);
-                            break;
-                        case "byCon":
-                            queries.Submission.deleteSubByCon(conn, args[2]);
-                            break;
-                        case "byProb":
-                            queries.Submission.deleteSubByProb(conn, args[2]);
-                            break;
+                    case "bysub":
+                        queries.Submission.deleteSubBySub(conn, args[2]);
+                        break;
+                    case "byCon":
+                        queries.Submission.deleteSubByCon(conn, args[2]);
+                        break;
+                    case "byProb":
+                        queries.Submission.deleteSubByProb(conn, args[2]);
+                        break;
                     case "update":
                         switch (args[2]) {
                             case "bySub":
@@ -323,208 +323,208 @@ public class App {
                                 break;
                         }
                         break;
-                   }
-                   
-                        // case "fl":
-                        // switch (args[2]) {
-                        // case "cat":
+                }
 
-                        // Display.displayCatagoriesFirstLetter(con, args[3]);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // case "foodname":
+                // case "fl":
+                // switch (args[2]) {
+                // case "cat":
 
-                        // Display.displayFoodNameFirstLetter(con, args[3]);
-                        // codeforces.disconnect(conn);
-                        // break;
+                // Display.displayCatagoriesFirstLetter(con, args[3]);
+                // codeforces.disconnect(conn);
+                // break;
+                // case "foodname":
 
-                        // default:
-                        // printHelp();
-                        // break;
-                        // }
-                        // case "ps":
-                        // switch (args[2]) {
-                        // case "cat":
+                // Display.displayFoodNameFirstLetter(con, args[3]);
+                // codeforces.disconnect(conn);
+                // break;
 
-                        // Display.displayCatagoriesPartialString(con, args[3]);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // case "foodname":
+                // default:
+                // printHelp();
+                // break;
+                // }
+                // case "ps":
+                // switch (args[2]) {
+                // case "cat":
 
-                        // Display.displayFoodNamePartialString(con, args[3]);
-                        // codeforces.disconnect(conn);
-                        // break;
+                // Display.displayCatagoriesPartialString(con, args[3]);
+                // codeforces.disconnect(conn);
+                // break;
+                // case "foodname":
 
-                        // default:
-                        // printHelp();
-                        // break;
-                        // }
-                        // break;
-                        // case "range":
-                        // switch (args[2]) {
-                        // case "-e":
-                        // Display.displayPriceEqual(con, args[3]);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // case "-g":
-                        // Display.displayPriceGreater(con, args[3]);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // case "-ge":
-                        // Display.displayPriceGreaterEqual(con, args[3]);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // case "-l":
-                        // Display.displayPriceLesser(con, args[3]);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // case "-le":
-                        // Display.displayPriceLesserEqual(con, args[3]);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // default:
-                        // printHelp();
-                        // break;
-                        // }
-                        // break;
-                        // default:
-                        // printHelp();
+                // Display.displayFoodNamePartialString(con, args[3]);
+                // codeforces.disconnect(conn);
+                // break;
 
-                        // break;
-                        // }
-                        // break;
-                        // case "-i"
-                        // Insert.insertRecord(conn, args);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // case "-count":
-                        // switch (args[1]) {
+                // default:
+                // printHelp();
+                // break;
+                // }
+                // break;
+                // case "range":
+                // switch (args[2]) {
+                // case "-e":
+                // Display.displayPriceEqual(con, args[3]);
+                // codeforces.disconnect(conn);
+                // break;
+                // case "-g":
+                // Display.displayPriceGreater(con, args[3]);
+                // codeforces.disconnect(conn);
+                // break;
+                // case "-ge":
+                // Display.displayPriceGreaterEqual(con, args[3]);
+                // codeforces.disconnect(conn);
+                // break;
+                // case "-l":
+                // Display.displayPriceLesser(con, args[3]);
+                // codeforces.disconnect(conn);
+                // break;
+                // case "-le":
+                // Display.displayPriceLesserEqual(con, args[3]);
+                // codeforces.disconnect(conn);
+                // break;
+                // default:
+                // printHelp();
+                // break;
+                // }
+                // break;
+                // default:
+                // printHelp();
 
-                        // case "cat":
+                // break;
+                // }
+                // break;
+                // case "-i"
+                // Insert.insertRecord(conn, args);
+                // codeforces.disconnect(conn);
+                // break;
+                // case "-count":
+                // switch (args[1]) {
 
-                        // CountByCategory.count(conn);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // case "veg":
+                // case "cat":
 
-                        // CountByVeg.count(con);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // case "nonveg":
+                // CountByCategory.count(conn);
+                // codeforces.disconnect(conn);
+                // break;
+                // case "veg":
 
-                        // CountByNonVeg.count(con);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // default:
-                        // printHelp();
+                // CountByVeg.count(con);
+                // codeforces.disconnect(conn);
+                // break;
+                // case "nonveg":
 
-                        // break;
-                        // }
-                        // break;
-                        // case "-avg":
-                        // switch (args[1]) {
+                // CountByNonVeg.count(con);
+                // codeforces.disconnect(conn);
+                // break;
+                // default:
+                // printHelp();
 
-                        // case "cat":
+                // break;
+                // }
+                // break;
+                // case "-avg":
+                // switch (args[1]) {
 
-                        // AvgByCategory.avg(con);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // case "veg":
+                // case "cat":
 
-                        // AvgByVeg.avg(con);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // case "nonveg":
+                // AvgByCategory.avg(con);
+                // codeforces.disconnect(conn);
+                // break;
+                // case "veg":
 
-                        // AvgByNonAvg.avg(con);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // default:
-                        // printHelp();
+                // AvgByVeg.avg(con);
+                // codeforces.disconnect(conn);
+                // break;
+                // case "nonveg":
 
-                        // break;
-                        // }
+                // AvgByNonAvg.avg(con);
+                // codeforces.disconnect(conn);
+                // break;
+                // default:
+                // printHelp();
 
-                        // break;
-                        // case "-u":
-                        // switch (args[1]) {
+                // break;
+                // }
 
-                        // case "cat":
+                // break;
+                // case "-u":
+                // switch (args[1]) {
 
-                        // Update.updateByCategory(con, args);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // case "veg":
+                // case "cat":
 
-                        // Update.updateByVeg(con, args);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // case "nonveg":
+                // Update.updateByCategory(con, args);
+                // codeforces.disconnect(conn);
+                // break;
+                // case "veg":
 
-                        // Update.updateByNonVeg(con, args);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // case "id":
+                // Update.updateByVeg(con, args);
+                // codeforces.disconnect(conn);
+                // break;
+                // case "nonveg":
 
-                        // Update.updateByFoodId(con, args);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // case "all":
+                // Update.updateByNonVeg(con, args);
+                // codeforces.disconnect(conn);
+                // break;
+                // case "id":
 
-                        // Update.updateAll(con, args);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // default:
-                        // printHelp();
+                // Update.updateByFoodId(con, args);
+                // codeforces.disconnect(conn);
+                // break;
+                // case "all":
 
-                        // break;
-                        // }
-                        // break;
-                        // case "-o":
-                        // switch (args[1]) {
+                // Update.updateAll(con, args);
+                // codeforces.disconnect(conn);
+                // break;
+                // default:
+                // printHelp();
 
-                        // case "create":
-                        // OrderList.createOrder(con, args);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // case "show":
+                // break;
+                // }
+                // break;
+                // case "-o":
+                // switch (args[1]) {
 
-                        // OrderList.printOrder(con);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // case "showmore":
+                // case "create":
+                // OrderList.createOrder(con, args);
+                // codeforces.disconnect(conn);
+                // break;
+                // case "show":
 
-                        // OrderList.printOrderMore(con);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // case "cone":
+                // OrderList.printOrder(con);
+                // codeforces.disconnect(conn);
+                // break;
+                // case "showmore":
 
-                        // OrderList.cancelOrder(con,Integer.parseInt(args[2]));
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // case "call":
+                // OrderList.printOrderMore(con);
+                // codeforces.disconnect(conn);
+                // break;
+                // case "cone":
 
-                        // OrderList.cancelOrder(conn);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // default:
-                        // printHelp();
+                // OrderList.cancelOrder(con,Integer.parseInt(args[2]));
+                // codeforces.disconnect(conn);
+                // break;
+                // case "call":
 
-                        // break;
-                        // }
-                        // break;
-                        // case "-d":
+                // OrderList.cancelOrder(conn);
+                // codeforces.disconnect(conn);
+                // break;
+                // default:
+                // printHelp();
 
-                        // Delete.deleteRecord(conn,args);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // case "-h":
-                        // printHelp();
-                        // break;
-                        // default:
-                        // printHelp();
-                        // break;
-                
+                // break;
+                // }
+                // break;
+                // case "-d":
+
+                // Delete.deleteRecord(conn,args);
+                // codeforces.disconnect(conn);
+                // break;
+                // case "-h":
+                // printHelp();
+                // break;
+                // default:
+                // printHelp();
+                // break;
+
         }
     }
 }
