@@ -98,11 +98,11 @@ public class Problem implements DisplayInterface{
         }
     }
 
-    public static void searchByContest(Connection con, String ContestID, String operator) {
+    public static void searchByContest(Connection con, String ContestID) {
         try {
-            String query = "select * from problem where ContestID "+ operator + " ?";
+            String query = "select * from problem where ContestID = ?";
             PreparedStatement preparedStmt = con.prepareStatement(query);
-            preparedStmt.setInt(1, Integer.parseInt(ContestID));
+            preparedStmt.setString(1, ContestID);
             ResultSet rs = preparedStmt.executeQuery();
             if (rs.next() == false) {
                 System.out.println("No Result from problems");
