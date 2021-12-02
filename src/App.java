@@ -152,7 +152,7 @@ public class App {
                 Data.loadSubmissionsData(conn);
                 codeforces.disconnect(conn);
                 break;
-            case "-dispall":
+            case "-display":
                 operations.Display.displayAll(conn);
             case "-prob":
                 switch (args[1]) {
@@ -208,7 +208,11 @@ public class App {
                                 }
                                 break;
                             case "-byAut":
-                                queries.Problem.searchByAuthor(conn, args[3]);
+                                System.out.println("Write the author you want to search");
+                                Scanner sc6 = new Scanner(System.in);
+                                String author = sc6.nextLine();
+                                queries.Problem.searchByAuthor(conn, author);
+                                sc6.close();
                                 break;
                         }
                         break;
@@ -408,6 +412,92 @@ public class App {
                         break;
                 }
                 break;
+
+            case "-contest":
+                switch (args[1]) {
+                    case "-disp":
+                        queries.Contest.displayAll(conn);
+                        codeforces.disconnect(conn);
+                        break;
+                    case "-ins":
+                        System.out.println("Write the tuple you want to insert");
+                        Scanner sc = new Scanner(System.in);
+                        String tuple = sc.nextLine();
+                        queries.Contest.insertContest(conn, tuple);
+                        sc.close();
+                        break;
+                    case "-del":
+                        queries.Contest.deleteContests(conn, args[2]);
+                        break;
+                    case "-upd":
+                        switch (args[2]) {
+                            case "-authById":
+                                queries.Contest.updateAuthor(conn, args[3], args[4]);
+                                break;
+                            case "-divById":
+                                queries.Contest.updateDivision(conn, args[3], args[4]);
+                                break;
+                            case "-stimeById":
+                                queries.Contest.updateStartTime(conn, args[3], args[4]);
+                                break;
+                            case "-etimeById":
+                                queries.Contest.updateEndTime(conn, args[3], args[4]);
+                                break;
+                        }
+                        break;
+                    case "-s":
+                        switch (args[2]) {
+                            case "-byId":
+                                queries.Contest.searchByContestId(conn, args[3]);
+                                break;
+                            case "-byDiv":
+                                switch (args[3]) {
+                                    case "-gt":
+                                        queries.Contest.searchByDivision(conn, args[4], ">");
+                                        break;
+                                    case "-lt":
+                                        queries.Contest.searchByDivision(conn, args[4], "<");
+                                        break;
+                                    case "-lte":
+                                        queries.Contest.searchByDivision(conn, args[4], "<=");
+                                        break;
+                                    case "-gte":
+                                        queries.Contest.searchByDivision(conn, args[4], ">=");
+                                        break;
+                                    case "eq":
+                                        queries.Contest.searchByDivision(conn, args[4], "=");
+                                        break;
+                                }
+                                break;
+                            case "-bySTime":
+                                queries.Contest.searchByStartTime(conn, args[3]);
+                                break;
+                            case "-byETime":
+                                queries.Contest.searchByEndTime(conn, args[3]);
+                                break;
+                            case "-byContri":
+                                switch (args[3]) {
+                                    case "-gt":
+                                        queries.User.searchByContribution(conn, args[4], ">");
+                                        break;
+                                    case "-lt":
+                                        queries.User.searchByContribution(conn, args[4], "<");
+                                        break;
+                                    case "-lte":
+                                        queries.User.searchByContribution(conn, args[4], "<=");
+                                        break;
+                                    case "-gte":
+                                        queries.User.searchByContribution(conn, args[4], ">=");
+                                        break;
+                                    case "eq":
+                                        queries.User.searchByContribution(conn, args[4], "=");
+                                        break;
+                                }
+                                break;
+                    }
+                    break;
         }
     }
 }
+}
+
