@@ -4,8 +4,6 @@ import java.sql.*;
 import queries.*;
 import java.util.Scanner;
 
-
-
 class Help{
     public void HelpMenu() {
 
@@ -75,31 +73,45 @@ class SubHelp extends Help{
                       "-user -s -byUser <UserName>","-user -s -byOrg <OrganisationName>","-user -s -byCity <CityName>","-user -s -byCou <CountryName>","-user -s -byContri -gt <Contribution>",
                       "-user -s -byContri -lt <Contribution>","-user -s -byContri -gte <Contribution>","-user -s -byContri -lte <Contribution>","-user -s -byContri -eq <Contribution>","-user -sort -byId",
                       "-user -sort -byRat","-user -sort -byMaxRat","-user -sort -byContri"};
-       String[] des2={"Displays Users Table","Insert Data into Users Table","Delete Data from Users Table for respective UserID","Update Rating by providing UserID","Update MaxRating by providing UserID",
-                      "Update Name of Organisation by providing UserID","Update Name of City by providing UserID","Update Name of Country by providing UserID","Update Name of Contribution by providing UserID",
-                      "Search Details of user by providing UserID","Search Details of user who has Rating greater than the provided Rating","Search Details of user who has Rating less than the provided Rating",
-                      "Search Details of user who has Rating greater than or equals to the provided Rating","Search Details of user who has Rating lesser than or equals to the provided Rating",
-                      "Search Details of user who has Rating equal to the provided Rating","Search Details of user who has MaxRating greater than the provided MaxRating","Search Details of user who has MaxRating lesser than the provided MaxRating",
-                      "Search Details of user who has MaxRating greater than or equals to the provided MaxRating","Search Details of user who has MaxRating lesser than or equals to the provided MaxRating",
-                      "Search Details of user who has MaxRating equal to the provided MaxRating","Search Details of user who has the respective Username","Search Details of user who is in the respective Organisation",
-                      "Search Details of user who is in the respective City","Search Details of user who is in the respective Country","Search Details of user who has the Contribution greater than the provided Contribution",
-                      "Search Details of user who has the Contribution lesser than the provided Contribution","Search Details of user who has the Contribution greater than or equal to the provided Contribution",
-                      "Search Details of user who has the Contribution lesser than or equal to the provided Contribution","Search Details of user who has the Contribution equal to the provided Contribution",
-                      "Sort the Users by providing UserID","Sort the Users by providing Rating","Sort the Users by providing MaxRating","Sort the Users by providing Contribution"};
-       System.out.println("+-------------------------------------------------------+----------------------------------------------------------------------------------------------------+");
-       System.out.println("|Commands related to Users Of Codeforces                |Description                                                                                         |");
-       System.out.println("+-------------------------------------------------------+----------------------------------------------------------------------------------------------------+");
-       for(int i=0;i<user.length;i++) {
-           System.out.printf("|%-55s|%-100s|\n",user[i],des2[i]);
-       }
-       System.out.println("+-------------------------------------------------------+----------------------------------------------------------------------------------------------------+");
-
+        String[] des2={"Displays Users Table","Insert Data into Users Table","Delete Data from Users Table for respective UserID","Update Rating by providing UserID","Update MaxRating by providing UserID",
+                        "Update Name of Organisation by providing UserID","Update Name of City by providing UserID","Update Name of Country by providing UserID","Update Name of Contribution by providing UserID",
+                        "Search Details of user by providing UserID","Search Details of user who has Rating greater than the provided Rating","Search Details of user who has Rating less than the provided Rating",
+                        "Search Details of user who has Rating greater than or equals to the provided Rating","Search Details of user who has Rating lesser than or equals to the provided Rating",
+                        "Search Details of user who has Rating equal to the provided Rating","Search Details of user who has MaxRating greater than the provided MaxRating","Search Details of user who has MaxRating lesser than the provided MaxRating",
+                        "Search Details of user who has MaxRating greater than or equals to the provided MaxRating","Search Details of user who has MaxRating lesser than or equals to the provided MaxRating",
+                        "Search Details of user who has MaxRating equal to the provided MaxRating","Search Details of user who has the respective Username","Search Details of user who is in the respective Organisation",
+                        "Search Details of user who is in the respective City","Search Details of user who is in the respective Country","Search Details of user who has the Contribution greater than the provided Contribution",
+                        "Search Details of user who has the Contribution lesser than the provided Contribution","Search Details of user who has the Contribution greater than or equal to the provided Contribution",
+                        "Search Details of user who has the Contribution lesser than or equal to the provided Contribution","Search Details of user who has the Contribution equal to the provided Contribution",
+                        "Sort the Users by providing UserID","Sort the Users by providing Rating","Sort the Users by providing MaxRating","Sort the Users by providing Contribution"};
+        System.out.println("+-------------------------------------------------------+----------------------------------------------------------------------------------------------------+");
+        System.out.println("|Commands related to Users Of Codeforces                |Description                                                                                         |");
+        System.out.println("+-------------------------------------------------------+----------------------------------------------------------------------------------------------------+");
+        for(int i=0;i<user.length;i++) {
+            System.out.printf("|%-55s|%-100s|\n",user[i],des2[i]);
+        }
+        System.out.println("+-------------------------------------------------------+----------------------------------------------------------------------------------------------------+");
+        
+        String[] contest=  {"-con -disp","-con -ins","-con -del <ContestID>","-con -upd -aut <ContestID> <Author>","-con -upd -div <ContestID> <Division>","-con -upd -stime <ContestID> <StartTime>","-con -upd -etime <ContestID> <EndTime>","-con -s -byId <ContestID>","-con -s -byDiv -gt <Division>",
+                            "-con -s -byDiv -lt <Division>","-con -s -byDiv -gte <Division>","-con -s -byDiv -lte <Division>","-con -s -byDiv -eq <Division>",
+                            "-con -s -byStime <StartTime>","-con -s -byEtime <EndTime>"};
+        String[] des4= {"Displays Contests Table","Insert Data into Contests Table","Delete Data from Contests Table for respective ContestID","Update AuthorName by providing ContestID",
+                        "Update Division by providing ContestID","Update StartTime of Contest by providing ContestID","Update EndTime of Contest by providing ContestID",
+                        "Search Details of contest by providing ContestID","Search Details of contest which has Division greater than the provided Division",
+                        "Search Details of contest which has Division lesser than the provided Division","Search Details of contest which has Division greater than or equals to the provided Division",
+                        "Search Details of contest which has Division lesser than or equals to the provided Division","Search Details of contest which has Division equals to the provided Division",
+                        "Search Details of contest by providing Start Time of Contest","Search Details of contest by providing End Time of Contest"};
+        System.out.println("+-------------------------------------------------------+----------------------------------------------------------------------------------------------------+");
+        System.out.println("|Commands related to Contests Of Codeforces             |Description                                                                                         |");
+        System.out.println("+-------------------------------------------------------+----------------------------------------------------------------------------------------------------+");
+        for(int i=0;i<contest.length;i++) {
+            System.out.printf("|%-55s|%-100s|\n",contest[i],des4[i]);
+        }
+        System.out.println("+-------------------------------------------------------+----------------------------------------------------------------------------------------------------+");
+        
    }
 
 }
-
-
-
 
 
 public class App {
@@ -110,7 +122,7 @@ public class App {
             Statement stmt2 = conn.createStatement();
             String table1 = "CREATE TABLE Problem (ProblemID varchar(50),Author varchar(255),ProblemRating int,ContestID int);";
             String table2 = "CREATE TABLE User (UserID varchar(50),Username varchar(255),Rating int,MaxRating int,Organisation varchar(255),City varchar(255),Country varchar(255),Contribution int);";
-            String table3 = "CREATE TABLE Contest (ContestID int,Author varchar(100),Division int,StartTime datetime,EndTime datetime);";
+            String table3 = "CREATE TABLE Contest (ContestID int,Author varchar(100),Division int,StartTime varchar(100),EndTime varchar(100));";
             String table4 = "CREATE TABLE Submission (SubmissionID int,ContestID int,ProblemID varchar(50),UserName varchar(255),Verdict varchar(50));";
             String dropProblem = "drop table if exists Problem";
             String dropUsers = "drop table if exists User";
@@ -150,6 +162,7 @@ public class App {
                 Data.loadProblemsData(conn);
                 Data.loadUsersData(conn);
                 Data.loadSubmissionsData(conn);
+                Data.loadContestsData(conn);
                 codeforces.disconnect(conn);
                 break;
             case "-display":
@@ -411,9 +424,8 @@ public class App {
                         }
                         break;
                 }
-                break;
 
-            case "-contest":
+            case "-con":
                 switch (args[1]) {
                     case "-disp":
                         queries.Contest.displayAll(conn);
@@ -431,16 +443,16 @@ public class App {
                         break;
                     case "-upd":
                         switch (args[2]) {
-                            case "-authById":
+                            case "-aut":
                                 queries.Contest.updateAuthor(conn, args[3], args[4]);
                                 break;
-                            case "-divById":
+                            case "-div":
                                 queries.Contest.updateDivision(conn, args[3], args[4]);
                                 break;
-                            case "-stimeById":
+                            case "-stime":
                                 queries.Contest.updateStartTime(conn, args[3], args[4]);
                                 break;
-                            case "-etimeById":
+                            case "-etime":
                                 queries.Contest.updateEndTime(conn, args[3], args[4]);
                                 break;
                         }
@@ -464,21 +476,20 @@ public class App {
                                     case "-gte":
                                         queries.Contest.searchByDivision(conn, args[4], ">=");
                                         break;
-                                    case "eq":
+                                    case "-eq":
                                         queries.Contest.searchByDivision(conn, args[4], "=");
                                         break;
                                 }
                                 break;
-                            case "-bySTime":
+                            case "-byStime":
                                 queries.Contest.searchByStartTime(conn, args[3]);
                                 break;
-                            case "-byETime":
+                            case "-byEtime":
                                 queries.Contest.searchByEndTime(conn, args[3]);
                                 break;
                     }
                     break;
+            }
         }
     }
 }
-}
-
