@@ -2,6 +2,8 @@ package queries;
 
 import java.sql.*;
 
+import util.DisplayInterface;
+
 public class Contest {
 
     public static void printTable(ResultSet rs) {
@@ -21,20 +23,10 @@ public class Contest {
     }
 
     public static void displayAll(Connection con) {
-        try {
-            Statement st = con.createStatement();
-            ResultSet result1 = st.executeQuery("select * from contest");
-
-            if (result1.next() == false) {
-                System.out.println("No Result from Contest");
-            } else {
-                System.out.println("Contest Table :\n");
-                printTable(result1);
-            }
-            System.out.printf("\n");
-        } catch (SQLException e) {
-            System.out.println("Error: " + e.getMessage());
-        }
+        ResultSet rs = DisplayInterface.displayTable(con,"Contest");
+        if(rs==null)
+            return;
+        printTable(rs);
     }
 
     public static void insertContest(Connection con, String tuple) {
