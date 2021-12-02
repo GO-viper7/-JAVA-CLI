@@ -475,25 +475,6 @@ public class App {
                             case "-byETime":
                                 queries.Contest.searchByEndTime(conn, args[3]);
                                 break;
-                            case "-byContri":
-                                switch (args[3]) {
-                                    case "-gt":
-                                        queries.User.searchByContribution(conn, args[4], ">");
-                                        break;
-                                    case "-lt":
-                                        queries.User.searchByContribution(conn, args[4], "<");
-                                        break;
-                                    case "-lte":
-                                        queries.User.searchByContribution(conn, args[4], "<=");
-                                        break;
-                                    case "-gte":
-                                        queries.User.searchByContribution(conn, args[4], ">=");
-                                        break;
-                                    case "eq":
-                                        queries.User.searchByContribution(conn, args[4], "=");
-                                        break;
-                                }
-                                break;
                     }
                     break;
         }
