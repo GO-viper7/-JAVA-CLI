@@ -211,9 +211,9 @@ public class User {
 
     public static void searchByUsername(Connection con, String Author) {
         try {
-            String query = "select * from user where Username = ?";
+            String query = "select * from user where Username like ?";
             PreparedStatement preparedStmt = con.prepareStatement(query);
-            preparedStmt.setString(1, Author);
+            preparedStmt.setString(1, "%" + Author + "%");
             ResultSet rs = preparedStmt.executeQuery();
             if (rs.next() == false) {
                 System.out.println("No Result from Users");
@@ -228,9 +228,9 @@ public class User {
 
     public static void searchByOrganisation(Connection con, String Author) {
         try {
-            String query = "select * from user where Organisation = ?";
+            String query = "select * from user where Organisation like ?";
             PreparedStatement preparedStmt = con.prepareStatement(query);
-            preparedStmt.setString(1, Author);
+            preparedStmt.setString(1, "%" + Author + "%");
             ResultSet rs = preparedStmt.executeQuery();
             if (rs.next() == false) {
                 System.out.println("No Result from Users");
@@ -245,9 +245,9 @@ public class User {
 
     public static void searchByCity(Connection con, String Author) {
         try {
-            String query = "select * from user where City = ?";
+            String query = "select * from user where City like ?";
             PreparedStatement preparedStmt = con.prepareStatement(query);
-            preparedStmt.setString(1, Author);
+            preparedStmt.setString(1, "%" + Author + "%");
             ResultSet rs = preparedStmt.executeQuery();
             if (rs.next() == false) {
                 System.out.println("No Result from Users");
@@ -262,9 +262,9 @@ public class User {
 
     public static void searchByCountry(Connection con, String Author) {
         try {
-            String query = "select * from user where Country = ?";
+            String query = "select * from user where Country like ?";
             PreparedStatement preparedStmt = con.prepareStatement(query);
-            preparedStmt.setString(1, Author);
+            preparedStmt.setString(1, "%" + Author + "%");
             ResultSet rs = preparedStmt.executeQuery();
             if (rs.next() == false) {
                 System.out.println("No Result from Users");
