@@ -59,7 +59,7 @@ public class Data {
             while ((line = br.readLine()) != null) {
                 String[] contest = line.split(",");
 
-                String query = "insert into CONTEST(contestid,contestname,contestdate,contestrating) values (?, ?, ?, ?, ?)";
+                String query = "insert into CONTEST(contestid,author,division,starttime,endtime) values (?, ?, ?, ?, ?)";
                 PreparedStatement preparedStmt = conn.prepareStatement(query);
                 preparedStmt.setInt(1, Integer.parseInt(contest[0]));
                 preparedStmt.setString(2, contest[1]);
