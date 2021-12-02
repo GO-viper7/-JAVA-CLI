@@ -2,13 +2,13 @@ import database.*;
 import java.io.*;
 import java.sql.*;
 import queries.*;
-import operations.*;
 import java.util.Scanner;
 
-public class App {
-    private static Connection conn = null;
 
-    public static void HelpMenu() {
+
+class Help{
+    public void HelpMenu() {
+
         String[] com={"-ld","-dispall","-cd"};
         String[] des={"Load all the Existing Data into Tables to perform operations","Display all the tables in the Codeforces Database","Clear Data from the Database"};
            System.out.println("+--------------------+------------------------------------------------------------+");
@@ -18,6 +18,8 @@ public class App {
             System.out.printf("|%-20s|%-60s|\n",com[i],des[i]);
         }
         System.out.println("+--------------------+------------------------------------------------------------+");
+
+
         String[] prob={"-prob -disp","-prob -ins","-prob -del <ProblemID>","-prob -upd -ratById <ProblemRating> <ProblemID>","-prob -upd -ratByConId <ProblemRating> <ContestID>",
                        "-prob -s -byId <ProblemID>","-prob -s -byConId <ContestID>","-prob -s -byRat -gt <ProblemRating>","-prob -s -byRat -lt <ProblemRating>",
                        "-prob -s -byRat -gte <ProblemRating>","-prob -s -byRat -lte <ProblemRating>","-prob -s -byRat -eq <ProblemRating>","-prob -s -byAut",
@@ -28,7 +30,6 @@ public class App {
                        "Search Problems which are less than the respective ProblemRating","Search Problems which are greater than or equals to the respective ProblemRating",
                        "Search Problems which are less than or equals to the respective ProblemRating","Search Problems which are equals to the respective ProblemRating",
                        "Search Problems by providing Name of the Author","Sort Problems by providing ContestID","Sort Problems by providing ProblemRating"};
-        //System.out.println("                                                          +--------------------+-----------------------------------------------------------+\n\n");
         System.out.println("+-------------------------------------------------------+--------------------------------------------------------------------------------+");
         System.out.println("|Commands related to Problems Of Codeforces             |Description                                                                     |");
         System.out.println("+-------------------------------------------------------+--------------------------------------------------------------------------------+");
@@ -36,31 +37,8 @@ public class App {
             System.out.printf("|%-55s|%-80s|\n",prob[i],des1[i]);
         }
         System.out.println("+-------------------------------------------------------+--------------------------------------------------------------------------------+");
-        String[] user={"-user -disp","-user -ins","user -del <UserID>","-user -upd -ratById <UserID> <Rating>","-user -upd -maxratById <UserID> <MaxRating>","-user -upd -orgById <UserID> <Name of Organisation>",
-                       "-user -upd -cityById <UserID> <Name of City>","-user -upd -couById <UserID> <Country>","-user -upd -contriById <UserID> <Contribution>","-user -s -byId <UserID>",
-                       "-user -s -byRat -gt <Rating>","-user -s -byRat -lt <Rating>","-user -s -byRat -gte <Rating>","-user -s -byRat -lte <Rating>","-user -s -byRat -eq <Rating>",
-                       "-user -s -byMaxRat -gt <MaxRating>","-user -s -byMaxRat -lt <MaxRating>","-user -s -byMaxRat -gte <MaxRating>","-user -s -byMaxRat -lte <MaxRating>","-user -s -byMaxRat -eq <MaxRating>",
-                       "-user -s -byUser <UserName>","-user -s -byOrg <OrganisationName>","-user -s -byCity <CityName>","-user -s -byCou <CountryName>","-user -s -byContri gt <Contribution>",
-                       "-user -s -byContri -lt <Contribution>","-user -s -byContri -gte <Contribution>","-user -s -byContri -lte <Contribution>","-user -s -byContri -eq <Contribution>","-user -sort -byId",
-                       "-user -sort -byRat","-user -sort -byMaxRat","-user -sort -byContri"};
-        String[] des2={"Displays Users Table","Insert Data into Users Table","Delete Data from Users Table for respective UserID","Update Rating by providing UserID","Update MaxRating by providing UserID",
-                       "Update Name of Organisation by providing UserID","Update Name of City by providing UserID","Update Name of Country by providing UserID","Update Name of Contribution by providing UserID",
-                       "Search Details of user by providing UserID","Search Details of user who has Rating greater than the provided Rating","Search Details of user who has Rating less than the provided Rating",
-                       "Search Details of user who has Rating greater than or equals to the provided Rating","Search Details of user who has Rating lesser than or equals to the provided Rating",
-                       "Search Details of user who has Rating equal to the provided Rating","Search Details of user who has MaxRating greater than the provided MaxRating","Search Details of user who has MaxRating lesser than the provided MaxRating",
-                       "Search Details of user who has MaxRating greater than or equals to the provided MaxRating","Search Details of user who has MaxRating lesser than or equals to the provided MaxRating",
-                       "Search Details of user who has MaxRating equal to the provided MaxRating","Search Details of user who has the respective Username","Search Details of user who is in the respective Organisation",
-                       "Search Details of user who is in the respective City","Search Details of user who is in the respective Country","Search Details of user who has the Contribution greater than the provided Contribution",
-                       "Search Details of user who has the Contribution lesser than the provided Contribution","Search Details of user who has the Contribution greater than or equal to the provided Contribution",
-                       "Search Details of user who has the Contribution lesser than or equal to the provided Contribution","Search Details of user who has the Contribution equal to the provided Contribution",
-                       "Sort the Users by providing UserID","Sort the Users by providing Rating","Sort the Users by providing MaxRating","Sort the Users by providing Contribution"};
-        System.out.println("+-------------------------------------------------------+----------------------------------------------------------------------------------------------------+");
-        System.out.println("|Commands related to Users Of Codeforces                |Description                                                                                         |");
-        System.out.println("+-------------------------------------------------------+----------------------------------------------------------------------------------------------------+");
-        for(int i=0;i<user.length;i++) {
-            System.out.printf("|%-55s|%-100s|\n",user[i],des2[i]);
-        }
-        System.out.println("+-------------------------------------------------------+----------------------------------------------------------------------------------------------------+");
+
+
         String[] submission={"-sub -disp","-sub -ins","-sub -del -bySub <SubmissionID>","-sub -del -byCon <ContestID>","-sub -del -byProb <ProblemID>","-sub -upd -bySub <SubmissionID> <verdict>",
                              "-sub -upd -byProb <ProblemID> <verdict>","-sub -s -bySub <SubmissionID>","-sub -s -byCon <ContestID>","-sub -s -byProb <ProblemID>"};
         String[] des3={"Displays Submissions Table","Insert Data into Submissions Table","Delete Data from Submissions Table for respective SubmissiosnID",
@@ -74,8 +52,58 @@ public class App {
             System.out.printf("|%-55s|%-80s|\n",submission[i],des3[i]);
         }
         System.out.println("+-------------------------------------------------------+--------------------------------------------------------------------------------+");
-        
+       
     }
+}
+
+
+class SubHelp extends Help{
+    
+    @Override
+    public void HelpMenu(){
+
+        try {
+           super.HelpMenu();
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+        String[] user={"-user -disp","-user -ins","-user -del <UserID>","-user -upd -ratById <UserID> <Rating>","-user -upd -maxratById <UserID> <MaxRating>","-user -upd -orgById <UserID> <Name of Organisation>",
+                      "-user -upd -cityById <UserID> <Name of City>","-user -upd -couById <UserID> <Country>","-user -upd -contriById <UserID> <Contribution>","-user -s -byId <UserID>",
+                      "-user -s -byRat -gt <Rating>","-user -s -byRat -lt <Rating>","-user -s -byRat -gte <Rating>","-user -s -byRat -lte <Rating>","-user -s -byRat -eq <Rating>",
+                      "-user -s -byMaxRat -gt <MaxRating>","-user -s -byMaxRat -lt <MaxRating>","-user -s -byMaxRat -gte <MaxRating>","-user -s -byMaxRat -lte <MaxRating>","-user -s -byMaxRat -eq <MaxRating>",
+                      "-user -s -byUser <UserName>","-user -s -byOrg <OrganisationName>","-user -s -byCity <CityName>","-user -s -byCou <CountryName>","-user -s -byContri -gt <Contribution>",
+                      "-user -s -byContri -lt <Contribution>","-user -s -byContri -gte <Contribution>","-user -s -byContri -lte <Contribution>","-user -s -byContri -eq <Contribution>","-user -sort -byId",
+                      "-user -sort -byRat","-user -sort -byMaxRat","-user -sort -byContri"};
+       String[] des2={"Displays Users Table","Insert Data into Users Table","Delete Data from Users Table for respective UserID","Update Rating by providing UserID","Update MaxRating by providing UserID",
+                      "Update Name of Organisation by providing UserID","Update Name of City by providing UserID","Update Name of Country by providing UserID","Update Name of Contribution by providing UserID",
+                      "Search Details of user by providing UserID","Search Details of user who has Rating greater than the provided Rating","Search Details of user who has Rating less than the provided Rating",
+                      "Search Details of user who has Rating greater than or equals to the provided Rating","Search Details of user who has Rating lesser than or equals to the provided Rating",
+                      "Search Details of user who has Rating equal to the provided Rating","Search Details of user who has MaxRating greater than the provided MaxRating","Search Details of user who has MaxRating lesser than the provided MaxRating",
+                      "Search Details of user who has MaxRating greater than or equals to the provided MaxRating","Search Details of user who has MaxRating lesser than or equals to the provided MaxRating",
+                      "Search Details of user who has MaxRating equal to the provided MaxRating","Search Details of user who has the respective Username","Search Details of user who is in the respective Organisation",
+                      "Search Details of user who is in the respective City","Search Details of user who is in the respective Country","Search Details of user who has the Contribution greater than the provided Contribution",
+                      "Search Details of user who has the Contribution lesser than the provided Contribution","Search Details of user who has the Contribution greater than or equal to the provided Contribution",
+                      "Search Details of user who has the Contribution lesser than or equal to the provided Contribution","Search Details of user who has the Contribution equal to the provided Contribution",
+                      "Sort the Users by providing UserID","Sort the Users by providing Rating","Sort the Users by providing MaxRating","Sort the Users by providing Contribution"};
+       System.out.println("+-------------------------------------------------------+----------------------------------------------------------------------------------------------------+");
+       System.out.println("|Commands related to Users Of Codeforces                |Description                                                                                         |");
+       System.out.println("+-------------------------------------------------------+----------------------------------------------------------------------------------------------------+");
+       for(int i=0;i<user.length;i++) {
+           System.out.printf("|%-55s|%-100s|\n",user[i],des2[i]);
+       }
+       System.out.println("+-------------------------------------------------------+----------------------------------------------------------------------------------------------------+");
+
+   }
+
+}
+
+
+
+
+
+public class App {
+    private static Connection conn = null;
 
     public static void createTables() {
         try {
@@ -112,7 +140,8 @@ public class App {
         }
         switch (args[0]) {
             case "-h":
-                HelpMenu();
+                SubHelp temp = new SubHelp();
+                temp.HelpMenu();
             case "-cd":
                 createTables();
                 codeforces.disconnect(conn);
@@ -123,12 +152,12 @@ public class App {
                 Data.loadSubmissionsData(conn);
                 codeforces.disconnect(conn);
                 break;
-            case "-dispall":
+            case "-display":
                 operations.Display.displayAll(conn);
             case "-prob":
                 switch (args[1]) {
                     case "-disp":
-                        queries.Problem.displayAll(conn);
+                        Problem.displayAll(conn);
                         codeforces.disconnect(conn);
                         break;
                     case "-ins":
@@ -198,7 +227,7 @@ public class App {
                         }
                         break;
                 }
-
+                break;
             case "-user":
                 switch (args[1]) {
                     case "-disp":
@@ -256,7 +285,7 @@ public class App {
                                     case "-gte":
                                         queries.User.searchByRating(conn, args[4], ">=");
                                         break;
-                                     case "eq":
+                                    case "eq":
                                         queries.User.searchByRating(conn, args[4], "=");
                                         break;
                                 }
@@ -275,7 +304,7 @@ public class App {
                                     case "-gte":
                                         queries.User.searchByMaxRating(conn, args[4], ">=");
                                         break;
-                                     case "eq":
+                                    case "eq":
                                         queries.User.searchByMaxRating(conn, args[4], "=");
                                         break;
                                 }
@@ -306,7 +335,7 @@ public class App {
                                     case "-gte":
                                         queries.User.searchByContribution(conn, args[4], ">=");
                                         break;
-                                     case "eq":
+                                    case "eq":
                                         queries.User.searchByContribution(conn, args[4], "=");
                                         break;
                                 }
@@ -330,7 +359,7 @@ public class App {
                         }
                         break;
                     }
-                
+                break;
             case "-sub":
                 switch (args[1]) {
                     case "-disp":
@@ -381,208 +410,75 @@ public class App {
                                 break;
                         }
                         break;
-                   }
-                   
-                        // case "fl":
-                        // switch (args[2]) {
-                        // case "cat":
+                }
+                break;
 
-                        // Display.displayCatagoriesFirstLetter(con, args[3]);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // case "foodname":
-
-                        // Display.displayFoodNameFirstLetter(con, args[3]);
-                        // codeforces.disconnect(conn);
-                        // break;
-
-                        // default:
-                        // printHelp();
-                        // break;
-                        // }
-                        // case "ps":
-                        // switch (args[2]) {
-                        // case "cat":
-
-                        // Display.displayCatagoriesPartialString(con, args[3]);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // case "foodname":
-
-                        // Display.displayFoodNamePartialString(con, args[3]);
-                        // codeforces.disconnect(conn);
-                        // break;
-
-                        // default:
-                        // printHelp();
-                        // break;
-                        // }
-                        // break;
-                        // case "range":
-                        // switch (args[2]) {
-                        // case "-e":
-                        // Display.displayPriceEqual(con, args[3]);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // case "-g":
-                        // Display.displayPriceGreater(con, args[3]);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // case "-ge":
-                        // Display.displayPriceGreaterEqual(con, args[3]);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // case "-l":
-                        // Display.displayPriceLesser(con, args[3]);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // case "-le":
-                        // Display.displayPriceLesserEqual(con, args[3]);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // default:
-                        // printHelp();
-                        // break;
-                        // }
-                        // break;
-                        // default:
-                        // printHelp();
-
-                        // break;
-                        // }
-                        // break;
-                        // case "-i"
-                        // Insert.insertRecord(conn, args);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // case "-count":
-                        // switch (args[1]) {
-
-                        // case "cat":
-
-                        // CountByCategory.count(conn);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // case "veg":
-
-                        // CountByVeg.count(con);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // case "nonveg":
-
-                        // CountByNonVeg.count(con);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // default:
-                        // printHelp();
-
-                        // break;
-                        // }
-                        // break;
-                        // case "-avg":
-                        // switch (args[1]) {
-
-                        // case "cat":
-
-                        // AvgByCategory.avg(con);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // case "veg":
-
-                        // AvgByVeg.avg(con);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // case "nonveg":
-
-                        // AvgByNonAvg.avg(con);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // default:
-                        // printHelp();
-
-                        // break;
-                        // }
-
-                        // break;
-                        // case "-u":
-                        // switch (args[1]) {
-
-                        // case "cat":
-
-                        // Update.updateByCategory(con, args);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // case "veg":
-
-                        // Update.updateByVeg(con, args);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // case "nonveg":
-
-                        // Update.updateByNonVeg(con, args);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // case "id":
-
-                        // Update.updateByFoodId(con, args);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // case "all":
-
-                        // Update.updateAll(con, args);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // default:
-                        // printHelp();
-
-                        // break;
-                        // }
-                        // break;
-                        // case "-o":
-                        // switch (args[1]) {
-
-                        // case "create":
-                        // OrderList.createOrder(con, args);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // case "show":
-
-                        // OrderList.printOrder(con);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // case "showmore":
-
-                        // OrderList.printOrderMore(con);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // case "cone":
-
-                        // OrderList.cancelOrder(con,Integer.parseInt(args[2]));
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // case "call":
-
-                        // OrderList.cancelOrder(conn);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // default:
-                        // printHelp();
-
-                        // break;
-                        // }
-                        // break;
-                        // case "-d":
-
-                        // Delete.deleteRecord(conn,args);
-                        // codeforces.disconnect(conn);
-                        // break;
-                        // case "-h":
-                        // printHelp();
-                        // break;
-                        // default:
-                        // printHelp();
-                        // break;
-                
+            case "-contest":
+                switch (args[1]) {
+                    case "-disp":
+                        queries.Contest.displayAll(conn);
+                        codeforces.disconnect(conn);
+                        break;
+                    case "-ins":
+                        System.out.println("Write the tuple you want to insert");
+                        Scanner sc = new Scanner(System.in);
+                        String tuple = sc.nextLine();
+                        queries.Contest.insertContest(conn, tuple);
+                        sc.close();
+                        break;
+                    case "-del":
+                        queries.Contest.deleteContests(conn, args[2]);
+                        break;
+                    case "-upd":
+                        switch (args[2]) {
+                            case "-authById":
+                                queries.Contest.updateAuthor(conn, args[3], args[4]);
+                                break;
+                            case "-divById":
+                                queries.Contest.updateDivision(conn, args[3], args[4]);
+                                break;
+                            case "-stimeById":
+                                queries.Contest.updateStartTime(conn, args[3], args[4]);
+                                break;
+                            case "-etimeById":
+                                queries.Contest.updateEndTime(conn, args[3], args[4]);
+                                break;
+                        }
+                        break;
+                    case "-s":
+                        switch (args[2]) {
+                            case "-byId":
+                                queries.Contest.searchByContestId(conn, args[3]);
+                                break;
+                            case "-byDiv":
+                                switch (args[3]) {
+                                    case "-gt":
+                                        queries.Contest.searchByDivision(conn, args[4], ">");
+                                        break;
+                                    case "-lt":
+                                        queries.Contest.searchByDivision(conn, args[4], "<");
+                                        break;
+                                    case "-lte":
+                                        queries.Contest.searchByDivision(conn, args[4], "<=");
+                                        break;
+                                    case "-gte":
+                                        queries.Contest.searchByDivision(conn, args[4], ">=");
+                                        break;
+                                    case "eq":
+                                        queries.Contest.searchByDivision(conn, args[4], "=");
+                                        break;
+                                }
+                                break;
+                            case "-bySTime":
+                                queries.Contest.searchByStartTime(conn, args[3]);
+                                break;
+                            case "-byETime":
+                                queries.Contest.searchByEndTime(conn, args[3]);
+                                break;
+                    }
+                    break;
         }
     }
 }
+}
+

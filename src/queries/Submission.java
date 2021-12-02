@@ -2,6 +2,8 @@ package queries;
 
 import java.sql.*;
 
+import util.DisplayInterface;
+
 public class Submission {
 
     public static void printTable(ResultSet rs) {
@@ -12,7 +14,7 @@ public class Submission {
             do {
                 System.out.printf("|%-15d|%-15d|%-10s|%-10s|%-11s|\n", rs.getInt(1), rs.getInt(2),
                         rs.getString(3),
-                        rs.getString(4),rs.getString(5));
+                        rs.getString(4), rs.getString(5));
             } while (rs.next());
             System.out.println("+---------------+---------------+----------+----------+-----------+");
         } catch (SQLException e) {
@@ -21,21 +23,11 @@ public class Submission {
     }
 
     public static void displayAll(Connection con) {
-            try {
-                Statement st = con.createStatement();
-                ResultSet result1 = st.executeQuery("select * from submission");
-
-                if (result1.next() == false) {
-                    System.out.println("No Result from Submissions");
-                } else {
-                    System.out.println("Submissions Table :\n");
-                    printTable(result1);
-                }
-                System.out.printf("\n");
-            } catch (SQLException e) {
-                System.out.println("Error: " + e.getMessage());
-            }
-        }
+        ResultSet rs = DisplayInterface.displayTable(con, "Submission");
+        if (rs == null)
+            return;
+        printTable(rs);
+    }
 
     public static void insertSubmissions(Connection con, String tuple) {
         try {
@@ -170,7 +162,7 @@ public class Submission {
                 System.out.println("Id " + id + " is not a Submission");
             } else {
                 System.out.println("Deleted");
-                
+
             }
         } catch (Exception e) {
             System.out.println(e);
@@ -188,13 +180,12 @@ public class Submission {
                 System.out.println("Id " + id + " is not a Submission");
             } else {
                 System.out.println("Deleted");
-                
+
             }
         } catch (Exception e) {
             System.out.println(e);
             System.out.println("Wrong command\nType \"-h\" to get help");
         }
     }
-
 
 }

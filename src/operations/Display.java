@@ -35,7 +35,7 @@ public class Display {
 
             ResultSet result2 = st.executeQuery("select * from User");
             if (result2.next() == false) {
-                System.out.println("No Result from Useresult4");
+                System.out.println("No Result from User");
             } else {
                 System.out.println("Users Table :\n");
                 System.out.println("+---------------+---------------+----------+----------+----------------+---------------+---------------+--------------+");
@@ -58,21 +58,23 @@ public class Display {
 
 
             
-            // ResultSet result3 = st.executeQuery("select * from contest");
+            ResultSet result3 = st.executeQuery("select * from contest");
 
-            // if (result3.next() == false) {
-            //     System.out.println("No Result from contests");
-            // } else {
+            if (result3.next() == false) {
+                System.out.println("No Result from contests");
+            } else {
 
-            //     System.out.println("Contests Table :\n");
-
-            //     do {
-            //         System.out.printf("%-10d%-15s%-10d%-15s%-15s\n", result3.getInt(1), result3.getString(2),
-            //                 result3.getInt(3), result3.getString(4), result3.getString(5));
-            //     } while (result3.next());
-            // }
-            // System.out.printf("\n\n");
-
+                System.out.println("Contests Table :\n");
+                System.out.println("+---------------+---------------+----------+-----------------+-----------------+");
+                System.out.println("|ContestID      |Author         |Division  |StartTime        |EndTime          |");
+                System.out.println("+---------------+---------------+----------+-----------------+-----------------+");
+                do {
+                    System.out.printf("|%-15d|%-15s|%-10d|%-20s|%-20s|\n", result3.getInt(1), result3.getString(2),
+                            result3.getInt(3), result3.getString(4), result3.getString(5));
+                } while (result3.next());
+                System.out.println("+---------------+---------------+----------+-----------------+-----------------+");
+                System.out.printf("\n\n");
+            }
 
 
 
@@ -101,18 +103,10 @@ public class Display {
             
             
         } catch (Exception e) {
-             System.out.println(e);
-             System.out.println("Wrong command\nType \"-h\" to get Help Menu");
-        }
-            
-            
-            
-            
-            
-            
-            
-            
-            
+            System.out.println(e);
+            System.out.println("Wrong command\nType \"-h\" to get Help Menu");
+        }       
 
     }
+
 }

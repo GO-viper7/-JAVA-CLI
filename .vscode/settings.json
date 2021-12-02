@@ -4,7 +4,8 @@
   "java.project.referencedLibraries": [
     "lib/**/*.jar",
     "c:\\Users\\khanm\\Downloads\\wsldownloads\\mysql-connector-java-8.0.27.jar",
-    "c:\\Users\\Nithish Reddy\\Downloads\\mysql-connector-java-8.0.27.jar"
+    "c:\\Users\\Nithish Reddy\\Downloads\\mysql-connector-java-8.0.27.jar",
+    "c:\\Users\\amjaz\\OneDrive\\Desktop\\College stuff\\Sem 3\\OOP\\mini project\\mysql-connector-java-8.0.27.jar"
   ],
   "liveshare.guestApprovalRequired": true,
 }

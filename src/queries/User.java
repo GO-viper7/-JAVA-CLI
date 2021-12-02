@@ -2,6 +2,8 @@ package queries;
 
 import java.sql.*;
 
+import util.DisplayInterface;
+
 public class User {
 
     public static void printTable(ResultSet rs) {
@@ -21,20 +23,10 @@ public class User {
     }
 
     public static void displayAll(Connection con) {
-        try {
-            Statement st = con.createStatement();
-            ResultSet result1 = st.executeQuery("select * from user");
-
-            if (result1.next() == false) {
-                System.out.println("No Result from users");
-            } else {
-                System.out.println("Users Table :\n");
-                printTable(result1);
-            }
-            System.out.printf("\n");
-        } catch (SQLException e) {
-            System.out.println("Error: " + e.getMessage());
-        }
+        ResultSet rs = DisplayInterface.displayTable(con,"User");
+        if(rs==null)
+            return;
+        printTable(rs);
     }
 
     public static void insertUsers(Connection con, String tuple) {
@@ -219,9 +211,9 @@ public class User {
 
     public static void searchByUsername(Connection con, String Author) {
         try {
-            String query = "select * from user where Username = ?";
+            String query = "select * from user where Username like ?";
             PreparedStatement preparedStmt = con.prepareStatement(query);
-            preparedStmt.setString(1, Author);
+            preparedStmt.setString(1, "%" + Author + "%");
             ResultSet rs = preparedStmt.executeQuery();
             if (rs.next() == false) {
                 System.out.println("No Result from Users");
@@ -236,9 +228,9 @@ public class User {
 
     public static void searchByOrganisation(Connection con, String Author) {
         try {
-            String query = "select * from user where Organisation = ?";
+            String query = "select * from user where Organisation like ?";
             PreparedStatement preparedStmt = con.prepareStatement(query);
-            preparedStmt.setString(1, Author);
+            preparedStmt.setString(1, "%" + Author + "%");
             ResultSet rs = preparedStmt.executeQuery();
             if (rs.next() == false) {
                 System.out.println("No Result from Users");
@@ -253,9 +245,9 @@ public class User {
 
     public static void searchByCity(Connection con, String Author) {
         try {
-            String query = "select * from user where City = ?";
+            String query = "select * from user where City like ?";
             PreparedStatement preparedStmt = con.prepareStatement(query);
-            preparedStmt.setString(1, Author);
+            preparedStmt.setString(1, "%" + Author + "%");
             ResultSet rs = preparedStmt.executeQuery();
             if (rs.next() == false) {
                 System.out.println("No Result from Users");
@@ -270,9 +262,9 @@ public class User {
 
     public static void searchByCountry(Connection con, String Author) {
         try {
-            String query = "select * from user where Country = ?";
+            String query = "select * from user where Country like ?";
             PreparedStatement preparedStmt = con.prepareStatement(query);
-            preparedStmt.setString(1, Author);
+            preparedStmt.setString(1, "%" + Author + "%");
             ResultSet rs = preparedStmt.executeQuery();
             if (rs.next() == false) {
                 System.out.println("No Result from Users");

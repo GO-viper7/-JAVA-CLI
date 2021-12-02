@@ -2,7 +2,9 @@ package queries;
 
 import java.sql.*;
 
-public class Problem {
+import util.DisplayInterface;
+
+public class Problem implements DisplayInterface{
 
     public static void printTable(ResultSet rs) {
         try {
@@ -21,18 +23,10 @@ public class Problem {
     }
 
     public static void displayAll(Connection con) {
-        try {
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("select * from problem");
-            if (rs.next() == false) {
-                System.out.println("No Result from problems");
-            } else {
-                printTable(rs);
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-            System.out.println("Wrong command\nType \"-h\" to get Help Menu");
-        }
+        ResultSet rs = DisplayInterface.displayTable(con,"Problem");
+        if(rs==null)
+            return;
+        printTable(rs);    
     }
 
     public static void insertProblems(Connection con, String tuple) {
@@ -140,9 +134,9 @@ public class Problem {
 
     public static void searchByAuthor(Connection con, String Author) {
         try {
-            String query = "select * from problem where Author = ?";
+            String query = "select * from problem where Author like ?";
             PreparedStatement preparedStmt = con.prepareStatement(query);
-            preparedStmt.setString(1, Author);
+            preparedStmt.setString(1, "%" + Author + "%");
             ResultSet rs = preparedStmt.executeQuery();
             if (rs.next() == false) {
                 System.out.println("No Result from problems");
