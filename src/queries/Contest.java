@@ -16,7 +16,7 @@ public class Contest {
                         rs.getInt(3),
                         rs.getString(4), rs.getString(5));
             } while (rs.next());
-            System.out.println("+---------------+---------------+----------+--------------------+-----------------------+");
+            System.out.println("+---------------+---------------+----------+--------------------+------------------------+");
         } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
         }
