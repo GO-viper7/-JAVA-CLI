@@ -65,14 +65,14 @@ public class Display {
             } else {
 
                 System.out.println("Contests Table :\n");
-                System.out.println("+---------------+---------------+----------+-----------------+-----------------+");
-                System.out.println("|ContestID      |Author         |Division  |StartTime        |EndTime          |");
-                System.out.println("+---------------+---------------+----------+-----------------+-----------------+");
+                System.out.println("+---------------+---------------+----------+--------------------+--------------------+");
+                System.out.println("|ContestID      |Author         |Division  |StartTime           |EndTime             |");
+                System.out.println("+---------------+---------------+----------+--------------------+--------------------+");
                 do {
                     System.out.printf("|%-15d|%-15s|%-10d|%-20s|%-20s|\n", result3.getInt(1), result3.getString(2),
                             result3.getInt(3), result3.getString(4), result3.getString(5));
                 } while (result3.next());
-                System.out.println("+---------------+---------------+----------+-----------------+-----------------+");
+                System.out.println("+---------------+---------------+----------+--------------------+--------------------+");
                 System.out.printf("\n\n");
             }
 
