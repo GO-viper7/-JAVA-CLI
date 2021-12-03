@@ -37,7 +37,7 @@ public class Submission {
             preparedStmt.setString(1, args[0]);
             preparedStmt.setString(2, args[1]);
             preparedStmt.setInt(3, Integer.parseInt(args[2]));
-            preparedStmt.setInt(4, Integer.parseInt(args[3]));
+            preparedStmt.setString(4, args[3]);
             preparedStmt.setString(5, args[4]);
             preparedStmt.execute();
             System.out.println("Inserted successfully");

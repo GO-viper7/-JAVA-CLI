@@ -41,6 +41,7 @@ public class Problem implements DisplayInterface{
             preparedStmt.execute();
             System.out.println("Inserted successfully");
         } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
             System.out.println("Wrong command\nType \"-h\" to get help");
         }
     }
