@@ -5,10 +5,10 @@ import queries.*;
 import java.util.Scanner;
 
 class Help{
-    public void HelpMenu() {
+    public void printHelpMenu() {
 
-        String[] com={"-ld","-dispall","-cd"};
-        String[] des={"Load all the Existing Data into Tables to perform operations","Display all the tables in the Codeforces Database","Clear Data from the Database"};
+        String[] com={"-h","-ld","-dispall","-cd"};
+        String[] des={"Display Help Menu","Load all the Existing Data into Tables to perform operations","Display all the tables in the Codeforces Database","Clear Data from the Database",};
            System.out.println("+--------------------+------------------------------------------------------------+");
            System.out.println("|Basic Commands      |Description                                                 |");
            System.out.println("+--------------------+------------------------------------------------------------+");
@@ -16,8 +16,8 @@ class Help{
             System.out.printf("|%-20s|%-60s|\n",com[i],des[i]);
         }
         System.out.println("+--------------------+------------------------------------------------------------+");
-
-
+    }
+    public void printProblemHelp(){
         String[] prob={"-prob -disp","-prob -ins","-prob -del <ProblemID>","-prob -upd -ratById <ProblemRating> <ProblemID>","-prob -upd -ratByConId <ProblemRating> <ContestID>",
                        "-prob -s -byId <ProblemID>","-prob -s -byConId <ContestID>","-prob -s -byRat -gt <ProblemRating>","-prob -s -byRat -lt <ProblemRating>",
                        "-prob -s -byRat -gte <ProblemRating>","-prob -s -byRat -lte <ProblemRating>","-prob -s -byRat -eq <ProblemRating>","-prob -s -byAut",
@@ -35,8 +35,8 @@ class Help{
             System.out.printf("|%-55s|%-80s|\n",prob[i],des1[i]);
         }
         System.out.println("+-------------------------------------------------------+--------------------------------------------------------------------------------+");
-
-
+    }
+    public void printSubmissionHelp(){
         String[] submission={"-sub -disp","-sub -ins","-sub -del -bySub <SubmissionID>","-sub -del -byCon <ContestID>","-sub -del -byProb <ProblemID>","-sub -upd -bySub <SubmissionID> <verdict>",
                              "-sub -upd -byProb <ProblemID> <verdict>","-sub -s -bySub <SubmissionID>","-sub -s -byCon <ContestID>","-sub -s -byProb <ProblemID>"};
         String[] des3={"Displays Submissions Table","Insert Data into Submissions Table","Delete Data from Submissions Table for respective SubmissiosnID",
@@ -58,21 +58,23 @@ class Help{
 class SubHelp extends Help{
     
     @Override
-    public void HelpMenu(){
+    public void printHelpMenu(){
 
         try {
-           super.HelpMenu();
+           super.printHelpMenu();
         }
         catch (Exception e) {
             System.out.println(e);
         }
+    }
+    public void printUserHelp(){
         String[] user={"-user -disp","-user -ins","-user -del <UserID>","-user -upd -ratById <UserID> <Rating>","-user -upd -maxratById <UserID> <MaxRating>","-user -upd -orgById <UserID> <Name of Organisation>",
-                      "-user -upd -cityById <UserID> <Name of City>","-user -upd -couById <UserID> <Country>","-user -upd -contriById <UserID> <Contribution>","-user -s -byId <UserID>",
-                      "-user -s -byRat -gt <Rating>","-user -s -byRat -lt <Rating>","-user -s -byRat -gte <Rating>","-user -s -byRat -lte <Rating>","-user -s -byRat -eq <Rating>",
-                      "-user -s -byMaxRat -gt <MaxRating>","-user -s -byMaxRat -lt <MaxRating>","-user -s -byMaxRat -gte <MaxRating>","-user -s -byMaxRat -lte <MaxRating>","-user -s -byMaxRat -eq <MaxRating>",
-                      "-user -s -byUser <UserName>","-user -s -byOrg <OrganisationName>","-user -s -byCity <CityName>","-user -s -byCou <CountryName>","-user -s -byContri -gt <Contribution>",
-                      "-user -s -byContri -lt <Contribution>","-user -s -byContri -gte <Contribution>","-user -s -byContri -lte <Contribution>","-user -s -byContri -eq <Contribution>","-user -sort -byId",
-                      "-user -sort -byRat","-user -sort -byMaxRat","-user -sort -byContri"};
+                "-user -upd -cityById <UserID> <Name of City>","-user -upd -couById <UserID> <Country>","-user -upd -contriById <UserID> <Contribution>","-user -s -byId <UserID>",
+                "-user -s -byRat -gt <Rating>","-user -s -byRat -lt <Rating>","-user -s -byRat -gte <Rating>","-user -s -byRat -lte <Rating>","-user -s -byRat -eq <Rating>",
+                "-user -s -byMaxRat -gt <MaxRating>","-user -s -byMaxRat -lt <MaxRating>","-user -s -byMaxRat -gte <MaxRating>","-user -s -byMaxRat -lte <MaxRating>","-user -s -byMaxRat -eq <MaxRating>",
+                "-user -s -byUser <UserName>","-user -s -byOrg <OrganisationName>","-user -s -byCity <CityName>","-user -s -byCou <CountryName>","-user -s -byContri -gt <Contribution>",
+                "-user -s -byContri -lt <Contribution>","-user -s -byContri -gte <Contribution>","-user -s -byContri -lte <Contribution>","-user -s -byContri -eq <Contribution>","-user -sort -byId",
+                "-user -sort -byRat","-user -sort -byMaxRat","-user -sort -byContri"};
         String[] des2={"Displays Users Table","Insert Data into Users Table","Delete Data from Users Table for respective UserID","Update Rating by providing UserID","Update MaxRating by providing UserID",
                         "Update Name of Organisation by providing UserID","Update Name of City by providing UserID","Update Name of Country by providing UserID","Update Name of Contribution by providing UserID",
                         "Search Details of user by providing UserID","Search Details of user who has Rating greater than the provided Rating","Search Details of user who has Rating less than the provided Rating",
@@ -91,7 +93,9 @@ class SubHelp extends Help{
             System.out.printf("|%-55s|%-100s|\n",user[i],des2[i]);
         }
         System.out.println("+-------------------------------------------------------+----------------------------------------------------------------------------------------------------+");
+    }
         
+    public void printContestHelp(){
         String[] contest=  {"-con -disp","-con -ins","-con -del <ContestID>","-con -upd -aut <ContestID> <Author>","-con -upd -div <ContestID> <Division>","-con -upd -stime <ContestID> <StartTime>","-con -upd -etime <ContestID> <EndTime>","-con -s -byId <ContestID>","-con -s -byDiv -gt <Division>",
                             "-con -s -byDiv -lt <Division>","-con -s -byDiv -gte <Division>","-con -s -byDiv -lte <Division>","-con -s -byDiv -eq <Division>",
                             "-con -s -byStime <StartTime>","-con -s -byEtime <EndTime>"};
@@ -108,11 +112,47 @@ class SubHelp extends Help{
             System.out.printf("|%-55s|%-100s|\n",contest[i],des4[i]);
         }
         System.out.println("+-------------------------------------------------------+----------------------------------------------------------------------------------------------------+");
-        
-   }
-
+    }
 }
 
+class Paginator{
+    public void paginate(){
+        Help temp = new Help();
+        SubHelp tempSub = new SubHelp();
+        temp.printHelpMenu();
+        int currentPage = 0;
+        System.out.println("Enter 1 to go to previous page, 2 to go to next page, any other key to exit.");
+        Scanner scanner = new Scanner(System.in);
+        while(true){
+            int choice = Integer.valueOf(scanner.nextLine());
+            if(choice != 1 && choice != 2)break;
+            else{
+                if(choice == 1 && currentPage > 0)currentPage--;
+                else if(choice == 2 && currentPage < 4)currentPage++;
+            }
+            System.out.print("\033[H\033[2J");
+            switch(currentPage){
+                case 0:
+                    temp.printHelpMenu();
+                    break;
+                case 1:
+                    temp.printProblemHelp();
+                    break;
+                case 2:
+                    temp.printSubmissionHelp();
+                    break;
+                case 3:
+                    tempSub.printContestHelp();
+                    break;
+                case 4:
+                    tempSub.printUserHelp();
+                    break;
+            }
+            System.out.println("Enter 1 to go to previous page, 2 to go to next page, any other key to exit.");
+        }
+        scanner.close();
+    }
+}
 
 public class App {
     private static Connection conn = null;
@@ -152,8 +192,9 @@ public class App {
         }
         switch (args[0]) {
             case "-h":
-                SubHelp temp = new SubHelp();
-                temp.HelpMenu();
+                Paginator p = new Paginator();
+                p.paginate();
+                break;
             case "-cd":
                 createTables();
                 codeforces.disconnect(conn);
@@ -167,6 +208,7 @@ public class App {
                 break;
             case "-display":
                 operations.Display.displayAll(conn);
+                break;
             case "-prob":
                 switch (args[1]) {
                     case "-disp":
@@ -348,7 +390,7 @@ public class App {
                                     case "-gte":
                                         queries.User.searchByContribution(conn, args[4], ">=");
                                         break;
-                                    case "eq":
+                                    case "-eq":
                                         queries.User.searchByContribution(conn, args[4], "=");
                                         break;
                                 }
