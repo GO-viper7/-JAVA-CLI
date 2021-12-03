@@ -206,7 +206,7 @@ public class App {
                 Data.loadContestsData(conn);
                 codeforces.disconnect(conn);
                 break;
-            case "-display":
+            case "-dispall":
                 operations.Display.displayAll(conn);
                 break;
             case "-prob":
@@ -263,11 +263,7 @@ public class App {
                                 }
                                 break;
                             case "-byAut":
-                                System.out.println("Write the author you want to search");
-                                Scanner sc6 = new Scanner(System.in);
-                                String author = sc6.nextLine();
-                                queries.Problem.searchByAuthor(conn, author);
-                                sc6.close();
+                                queries.Problem.searchByAuthor(conn, args[3]);
                                 break;
                         }
                         break;
