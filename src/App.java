@@ -160,14 +160,14 @@ public class App {
     public static void createTables() {
         try {
             Statement stmt2 = conn.createStatement();
-            String table1 = "CREATE TABLE Problem (ProblemID varchar(50),Author varchar(255),ProblemRating int,ContestID int);";
-            String table2 = "CREATE TABLE User (UserID varchar(50),Username varchar(255),Rating int,MaxRating int,Organisation varchar(255),City varchar(255),Country varchar(255),Contribution int);";
-            String table3 = "CREATE TABLE Contest (ContestID int,Author varchar(100),Division int,StartTime varchar(100),EndTime varchar(100));";
-            String table4 = "CREATE TABLE Submission (SubmissionID int,ContestID int,ProblemID varchar(50),UserName varchar(255),Verdict varchar(50));";
             String dropProblem = "drop table if exists Problem";
             String dropUsers = "drop table if exists User";
             String dropContest = "drop table if exists Contest";
             String dropSubmission = "drop table if exists Submission";
+            String table1 = "CREATE TABLE Problem (ProblemID varchar(50),Author varchar(255),ProblemRating int,ContestID int);";
+            String table2 = "CREATE TABLE User (UserID varchar(50),Username varchar(255),Rating int,MaxRating int,Organisation varchar(255),City varchar(255),Country varchar(255),Contribution int);";
+            String table3 = "CREATE TABLE Contest (ContestID int,Author varchar(100),Division int,StartTime varchar(100),EndTime varchar(100));";
+            String table4 = "CREATE TABLE Submission (SubmissionID int,ContestID int,ProblemID varchar(50),UserName varchar(255),Verdict varchar(50));";
             stmt2.executeUpdate(dropProblem);
             stmt2.executeUpdate(dropUsers);
             stmt2.executeUpdate(dropContest);
@@ -264,10 +264,7 @@ public class App {
                                 break;
                             case "-byAut":
                                 System.out.println("Write the author you want to search");
-                                Scanner sc6 = new Scanner(System.in);
-                                String author = sc6.nextLine();
-                                queries.Problem.searchByAuthor(conn, author);
-                                sc6.close();
+                                queries.Problem.searchByAuthor(conn, args[3]);
                                 break;
                         }
                         break;
@@ -466,7 +463,7 @@ public class App {
                         }
                         break;
                 }
-
+                break;
             case "-con":
                 switch (args[1]) {
                     case "-disp":

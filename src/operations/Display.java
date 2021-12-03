@@ -8,8 +8,6 @@ public class Display {
 
             Statement st = con.createStatement();
 
-
-
             ResultSet result1 = st.executeQuery("select * from Problem");
             if (result1.next() == false) {
                 System.out.println("No Result from Problems");
@@ -28,11 +26,6 @@ public class Display {
                 System.out.printf("\n\n");
              }
 
-
-
-
-
-
             ResultSet result2 = st.executeQuery("select * from User");
             if (result2.next() == false) {
                 System.out.println("No Result from User");
@@ -50,14 +43,6 @@ public class Display {
                 System.out.printf("\n\n");
             }
 
-
-
-
-
-
-
-
-            
             ResultSet result3 = st.executeQuery("select * from contest");
 
             if (result3.next() == false) {
@@ -75,13 +60,6 @@ public class Display {
                 System.out.println("+---------------+---------------+----------+-----------------+-----------------+");
                 System.out.printf("\n\n");
             }
-
-
-
-
-
-
-
 
             ResultSet result4 = st.executeQuery("select * from submission");
 

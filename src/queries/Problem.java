@@ -134,9 +134,9 @@ public class Problem implements DisplayInterface{
 
     public static void searchByAuthor(Connection con, String Author) {
         try {
-            String query = "select * from problem where Author like ?";
+            String query = "select * from problem where Author = ?";
             PreparedStatement preparedStmt = con.prepareStatement(query);
-            preparedStmt.setString(1, "%" + Author + "%");
+            preparedStmt.setString(1, Author);
             ResultSet rs = preparedStmt.executeQuery();
             if (rs.next() == false) {
                 System.out.println("No Result from problems");
