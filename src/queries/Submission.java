@@ -1,25 +1,63 @@
 package queries;
 
 import java.sql.*;
-
+import java.util.Scanner;
+import java.util.ArrayList;
 import util.DisplayInterface;
-
+class paginatorSubmission{
+    public void paginate(ResultSet rs){
+        ArrayList<String> resultRows = new ArrayList<>();
+        try{ 
+            do {
+                resultRows.add(String.format("|%-15d|%-15d|%-10s|%-10s|%-11s|\n", rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5)));
+            } while (rs.next());
+        }catch(SQLException e){
+            System.out.println("Error: " + e.getMessage());
+        }
+        int maxPages = (resultRows.size() + 9)/10;
+        int currentPage = 1;
+        Scanner scanner = new Scanner(System.in);
+        int endPage = 9;
+        if(resultRows.size() < 10)endPage = resultRows.size() - 1;
+        printPartialTable(resultRows, 0, endPage);
+        System.out.println("Page 1 of " + String.valueOf(maxPages));
+        System.out.println("Enter 1 to go to previous page, 2 to go to next page, any other key to exit.");
+        while(true){
+            int choice = Integer.valueOf(scanner.nextLine());
+            if (choice != 1 && choice != 2)
+                break;
+            else {
+                if (choice == 1 && currentPage > 1)
+                    currentPage--;
+                else if (choice == 2 && currentPage < maxPages)
+                    currentPage++;
+            }
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+            int startPage = (currentPage - 1)*10;
+            endPage = resultRows.size() - 1;
+            if(startPage + 9 < endPage)endPage = startPage + 9;
+            printPartialTable(resultRows, startPage,  endPage);
+            System.out.println("Page " + String.valueOf(currentPage) + " of " + String.valueOf(maxPages));
+            System.out.println("Enter 1 to go to previous page, 2 to go to next page, any other key to exit.");
+        }
+        scanner.close();
+    }
+    public void printPartialTable(ArrayList<String> rs, int startRow, int endRow){
+        System.out.println("+---------------+---------------+----------+----------+-----------+");
+        System.out.println("|SubmissionID   |ContestID      |ProblemID |Username  |Verdict    |");
+        System.out.println("+---------------+---------------+----------+----------+-----------+");
+        for(int i = startRow; i<=endRow; i++){
+            System.out.print(rs.get(i));
+        }
+        System.out.println("+---------------+---------------+----------+----------+-----------+");
+    }
+}
 public class Submission {
 
     public static void printTable(ResultSet rs) {
-        try {
-            System.out.println("+---------------+---------------+----------+----------+-----------+");
-            System.out.println("|SubmissionID   |ContestID      |ProblemID |Username  |Verdict    |");
-            System.out.println("+---------------+---------------+----------+----------+-----------+");
-            do {
-                System.out.printf("|%-15d|%-15d|%-10s|%-10s|%-11s|\n", rs.getInt(1), rs.getInt(2),
-                        rs.getString(3),
-                        rs.getString(4), rs.getString(5));
-            } while (rs.next());
-            System.out.println("+---------------+---------------+----------+----------+-----------+");
-        } catch (SQLException e) {
-            System.out.println("Error: " + e.getMessage());
-        }
+        paginatorSubmission pg = new paginatorSubmission();
+        pg.paginate(rs);
     }
 
     public static void displayAll(Connection con) {

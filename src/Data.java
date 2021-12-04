@@ -5,7 +5,7 @@ public class Data {
     public static void loadProblemsData(Connection conn) {
         try {
             BufferedReader br = new BufferedReader(new FileReader("Problems.csv"));
-            String line = br.readLine();
+            String line;
             while ((line = br.readLine()) != null) {
                 String[] problem = line.split(",");
 
@@ -28,7 +28,7 @@ public class Data {
     public static void loadUsersData(Connection conn) {
         try {
             BufferedReader br = new BufferedReader(new FileReader("Users.csv"));
-            String line = br.readLine();
+            String line;
             while ((line = br.readLine()) != null) {
                 String[] user = line.split(",");
 
@@ -55,7 +55,7 @@ public class Data {
     public static void loadContestsData(Connection conn) {
         try {
             BufferedReader br = new BufferedReader(new FileReader("Contests.csv"));
-            String line = br.readLine();
+            String line;
             while ((line = br.readLine()) != null) {
                 String[] contest = line.split(",");
 
@@ -79,7 +79,7 @@ public class Data {
     public static void loadSubmissionsData(Connection conn) {
         try {
             BufferedReader br = new BufferedReader(new FileReader("Submissions.csv"));
-            String line = br.readLine();
+            String line;
             while ((line = br.readLine()) != null) {
                 String[] submission = line.split(",");
 
