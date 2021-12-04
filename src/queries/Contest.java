@@ -31,6 +31,9 @@ public class Contest {
 
     public static void insertContest(Connection con, String tuple) {
         try {
+            int successCode = updateAll(con, tuple);
+            if (successCode == 1)
+                return;
             String[] args = tuple.split(" ");
             String query = " insert into Contest(ContestID,Author,Division,StartTime,EndTime) values (?, ?, ?, ?, ?)";
             PreparedStatement preparedStmt = con.prepareStatement(query);
@@ -45,6 +48,31 @@ public class Contest {
             System.out.println("Error: " + e.getMessage());
             System.out.println("Wrong command\nType \"-h\" to get help");
         }
+    }
+
+    public static int updateAll(Connection con, String tuple){
+        try{
+            int success = 0;
+            String[] args = tuple.split(" ");
+            String query = "update Contest set Author = ?, Division = ?, StartTime = ?, EndTime = ? where ContestID = ?";
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+            preparedStmt.setString(1, args[1]);
+            preparedStmt.setInt(2, Integer.parseInt(args[2]));
+            preparedStmt.setString(3, args[3]);
+            preparedStmt.setString(4, args[4]);
+            preparedStmt.setInt(5, Integer.parseInt(args[0]));
+            int rs = preparedStmt.executeUpdate();
+            if (rs == 0) {
+                return success;
+            } else {
+                System.out.println("Updated successfully");
+                return success + 1;
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            System.out.println("Wrong command\nType \"-h\" to get help");
+        }
+        return 0;
     }
 
     public static void updateAuthor(Connection con, String ContestID, String Author) {

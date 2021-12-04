@@ -8,29 +8,37 @@ public class User {
 
     public static void printTable(ResultSet rs) {
         try {
-            System.out.println("+---------------+---------------+----------+----------+----------------+---------------+---------------+--------------+");
-            System.out.println("|UserID         |Username       |Rating    |MaxRating |Organisation    |City           |Country        |Contribution  |");
-            System.out.println("+---------------+---------------+----------+----------+----------------+---------------+---------------+--------------+");
+            System.out.println(
+                    "+---------------+---------------+----------+----------+----------------+---------------+---------------+--------------+");
+            System.out.println(
+                    "|UserID         |Username       |Rating    |MaxRating |Organisation    |City           |Country        |Contribution  |");
+            System.out.println(
+                    "+---------------+---------------+----------+----------+----------------+---------------+---------------+--------------+");
             do {
-                System.out.printf("|%-15s|%-15s|%-10d|%-10d|%-16s|%-15s|%-15s|%-14d|\n", rs.getString(1), rs.getString(2),
+                System.out.printf("|%-15s|%-15s|%-10d|%-10d|%-16s|%-15s|%-15s|%-14d|\n", rs.getString(1),
+                        rs.getString(2),
                         rs.getInt(3),
                         rs.getInt(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getInt(8));
             } while (rs.next());
-            System.out.println("+---------------+---------------+----------+----------+----------------+---------------+---------------+--------------+");
+            System.out.println(
+                    "+---------------+---------------+----------+----------+----------------+---------------+---------------+--------------+");
         } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
 
     public static void displayAll(Connection con) {
-        ResultSet rs = DisplayInterface.displayTable(con,"User");
-        if(rs==null)
+        ResultSet rs = DisplayInterface.displayTable(con, "User");
+        if (rs == null)
             return;
         printTable(rs);
     }
 
     public static void insertUsers(Connection con, String tuple) {
         try {
+            int successCode = updateAll(con, tuple);
+            if (successCode == 1)
+                return;
             String[] args = tuple.split(" ");
             String query = " insert into user(UserID,Username,Rating,MaxRating,Organisation,City,Country,Contribution) values (?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStmt = con.prepareStatement(query);
@@ -48,6 +56,34 @@ public class User {
             System.out.println("Error: " + e.getMessage());
             System.out.println("Wrong command\nType \"-h\" to get help");
         }
+    }
+
+    public static int updateAll(Connection con, String tuple) {
+        try {
+            int success = 0;
+            String[] args = tuple.split(" ");
+            String query = "update user set Username= ?, Rating=?, MaxRating=?, Organisation=?, City=?, Country=?, Contribution=? where UserID=?";
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+            preparedStmt.setString(1, args[1]);
+            preparedStmt.setInt(2, Integer.parseInt(args[2]));
+            preparedStmt.setInt(3, Integer.parseInt(args[3]));
+            preparedStmt.setString(4, args[4]);
+            preparedStmt.setString(5, args[5]);
+            preparedStmt.setString(6, args[6]);
+            preparedStmt.setInt(7, Integer.parseInt(args[7]));
+            preparedStmt.setString(8, args[0]);
+            int rs = preparedStmt.executeUpdate();
+            if (rs == 0) {
+                return success;
+            } else {
+                System.out.println("Updated successfully");
+                return success + 1;
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            System.out.println("Wrong command\nType \"-h\" to get help");
+        }
+        return 0;
     }
 
     public static void updateRating(Connection con, String UserID, String Rating) {

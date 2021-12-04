@@ -183,6 +183,15 @@ class SubHelp extends Help {
 }
 
 class Paginator {
+    public static void clrscr() {
+        try {
+            if (System.getProperty("os.name").contains("Windows"))
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            else
+                Runtime.getRuntime().exec("clear");
+        } catch (IOException | InterruptedException ex) {}
+    }
+
     public void paginate() {
         Help temp = new Help();
         SubHelp tempSub = new SubHelp();
@@ -200,8 +209,7 @@ class Paginator {
                 else if (choice == 2 && currentPage < 4)
                     currentPage++;
             }
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
+            clrscr();
             switch (currentPage) {
                 case 0:
                     temp.printHelpMenu();
