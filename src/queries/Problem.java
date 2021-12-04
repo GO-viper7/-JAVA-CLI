@@ -3,10 +3,22 @@ import java.util.ArrayList;
 import java.sql.*;
 import java.util.Scanner;
 import util.DisplayInterface;
+<<<<<<< HEAD
 class paginatorProblem{
     public void paginate(ResultSet rs){
         ArrayList<String> resultRows = new ArrayList<>();
         try{ 
+=======
+
+public class Problem implements DisplayInterface {
+
+    public static void printTable(ResultSet rs) {
+        try {
+            System.out.println("+---------------+---------------+---------------+----------+");
+            System.out.println("|ProblemID      |Author         |ProblemRating  |ContestID |");
+            System.out.println("+---------------+---------------+---------------+----------+");
+
+>>>>>>> 011c81cc5f062935f54caa4d0d3724156930d0e7
             do {
                 resultRows.add(String.format("|%-15s|%-15s|%-15d|%-10d|\n", rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4)));
             } while (rs.next());
@@ -61,14 +73,17 @@ public class Problem implements DisplayInterface{
     }
 
     public static void displayAll(Connection con) {
-        ResultSet rs = DisplayInterface.displayTable(con,"Problem");
-        if(rs==null)
+        ResultSet rs = DisplayInterface.displayTable(con, "Problem");
+        if (rs == null)
             return;
-        printTable(rs);    
+        printTable(rs);
     }
 
     public static void insertProblems(Connection con, String tuple) {
         try {
+            int successCode = updateAll(con, tuple);
+            if (successCode == 1)
+                return;
             String[] args = tuple.split(" ");
             String query = " insert into Problem(ProblemID,Author,ProblemRating,ContestID) values (?, ?, ?, ?)";
             PreparedStatement preparedStmt = con.prepareStatement(query);
@@ -84,8 +99,33 @@ public class Problem implements DisplayInterface{
         }
     }
 
-    public static void updateRatingByContest(Connection con, String ContestID, String Rating) {
+    public static int updateAll(Connection con, String tuple) {
         try {
+            int success = 0;
+            String[] args = tuple.split(" ");
+            String query = "update Problem set Author = ?, ProblemRating = ?, ContestID = ? where ProblemID = ?";
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+            preparedStmt.setString(1, args[1]);
+            preparedStmt.setInt(2, Integer.parseInt(args[2]));
+            preparedStmt.setInt(3, Integer.parseInt(args[3]));
+            preparedStmt.setString(4, args[0]);
+            int rs = preparedStmt.executeUpdate();
+            if (rs == 0) {
+                return success;
+            } else {
+                System.out.println("Updated successfully");
+                return success + 1;
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            System.out.println("Wrong command\nType \"-h\" to get help");
+        }
+        return 0;
+    }
+
+    public static int updateRatingByContest(Connection con, String ContestID, String Rating) {
+        try {
+
             String query = "update problem set ProblemRating = ? where ContestID = ? ";
             PreparedStatement preparedStmt = con.prepareStatement(query);
             preparedStmt.setInt(1, Integer.parseInt(Rating));
@@ -93,6 +133,7 @@ public class Problem implements DisplayInterface{
             int rs = preparedStmt.executeUpdate();
             if (rs == 0) {
                 System.out.println("Update failed!!!");
+
             } else {
                 System.out.println("Updated successfully");
             }
@@ -100,24 +141,33 @@ public class Problem implements DisplayInterface{
             System.out.println(e);
             System.out.println("Wrong command\nType \"-h\" to get help");
         }
+        return 0;
     }
 
-    public static void updateRating(Connection con, String id, String rating) {
+    public static int updateRating(Connection con, String id, String args) {
         try {
+<<<<<<< HEAD
             String query = "update problem set ProblemRating = ? where ProblemID = ?";
+=======
+            int success = 0;
+            String query = "update problem set ProblemRating = ? where ProblemID =?";
+>>>>>>> 011c81cc5f062935f54caa4d0d3724156930d0e7
             PreparedStatement preparedStmt = con.prepareStatement(query);
-            preparedStmt.setInt(1, Integer.parseInt(rating));
+            preparedStmt.setInt(1, Integer.parseInt(args));
             preparedStmt.setString(2, id);
             int rs = preparedStmt.executeUpdate();
             if (rs == 0) {
                 System.out.println("Update failed!!!");
+                return success;
             } else {
                 System.out.println("Updated successfully");
+                return success + 1;
             }
         } catch (Exception e) {
             System.out.println(e);
             System.out.println("Wrong command\nType \"-h\" to get help");
         }
+        return 0;
     }
 
     public static void searchById(Connection con, String id) {
@@ -154,9 +204,9 @@ public class Problem implements DisplayInterface{
         }
     }
 
-    public static void searchByRating(Connection con, String Rating,String operator) {
+    public static void searchByRating(Connection con, String Rating, String operator) {
         try {
-            String query = "select * from problem where ProblemRating "+ operator + " ?";
+            String query = "select * from problem where ProblemRating " + operator + " ?";
             PreparedStatement preparedStmt = con.prepareStatement(query);
             preparedStmt.setInt(1, Integer.parseInt(Rating));
             ResultSet rs = preparedStmt.executeQuery();
