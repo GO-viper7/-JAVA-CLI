@@ -61,7 +61,7 @@ public class Problem implements DisplayInterface {
     
     public static void displayCount(Connection con) {
         try {
-            ResultSet rs = DisplayInterface.displayTable(con,"Problem");
+            ResultSet rs = DisplayInterface.displayTable(con,"Problem",false);
             try{ 
                 Integer cnt=0;
                 do {
@@ -78,7 +78,7 @@ public class Problem implements DisplayInterface {
     }
 
     public static void displaySumRating(Connection con) {
-        ResultSet rs = DisplayInterface.displayTable(con,"Problem");
+        ResultSet rs = DisplayInterface.displayTable(con,"Problem",false);
         try{ 
             Integer sum=0;
             do {
@@ -91,7 +91,7 @@ public class Problem implements DisplayInterface {
     }
 
     public static void displayAvg(Connection con) {
-        ResultSet rs = DisplayInterface.displayTable(con,"Problem");
+        ResultSet rs = DisplayInterface.displayTable(con,"Problem",false);
         try{ 
             Integer sum=0,cnt=0;
             do {
