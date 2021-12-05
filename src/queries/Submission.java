@@ -61,7 +61,7 @@ public class Submission {
     }
 
     public static void displayAll(Connection con) {
-        ResultSet rs = DisplayInterface.displayTable(con, "Submission");
+        ResultSet rs = DisplayInterface.displayTable(con, "Submission",false);
         if (rs == null)
             return;
         printTable(rs);
@@ -75,9 +75,9 @@ public class Submission {
             String[] args = tuple.split(" ");
             String query = " insert into Submission(SubmissionID,ContestID,ProblemID,UserName,Verdict) values (?, ?, ?, ?, ?)";
             PreparedStatement preparedStmt = con.prepareStatement(query);
-            preparedStmt.setString(1, args[0]);
-            preparedStmt.setString(2, args[1]);
-            preparedStmt.setInt(3, Integer.parseInt(args[2]));
+            preparedStmt.setInt(1, Integer.parseInt(args[0]));
+            preparedStmt.setInt(2, Integer.parseInt(args[1]));
+            preparedStmt.setString(3, args[2]);
             preparedStmt.setString(4, args[3]);
             preparedStmt.setString(5, args[4]);
             preparedStmt.execute();

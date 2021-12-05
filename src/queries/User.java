@@ -4,25 +4,29 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 import util.DisplayInterface;
-class paginatorUser{
-    public void paginate(ResultSet rs){
+
+class paginatorUser {
+    public void paginate(ResultSet rs) {
         ArrayList<String> resultRows = new ArrayList<>();
-        try{ 
+        try {
             do {
-                resultRows.add(String.format("|%-15s|%-15s|%-10d|%-10d|%-16s|%-15s|%-15s|%-14d|\n", rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getInt(8)));
+                resultRows.add(String.format("|%-15s|%-15s|%-10d|%-10d|%-16s|%-15s|%-15s|%-14d|\n", rs.getString(1),
+                        rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getString(6), rs.getString(7),
+                        rs.getInt(8)));
             } while (rs.next());
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
         }
-        int maxPages = (resultRows.size() + 9)/10;
+        int maxPages = (resultRows.size() + 9) / 10;
         int currentPage = 1;
         Scanner scanner = new Scanner(System.in);
         int endPage = 9;
-        if(resultRows.size() < 10)endPage = resultRows.size() - 1;
+        if (resultRows.size() < 10)
+            endPage = resultRows.size() - 1;
         printPartialTable(resultRows, 0, endPage);
         System.out.println("Page 1 of " + String.valueOf(maxPages));
         System.out.println("Enter 1 to go to previous page, 2 to go to next page, any other key to exit.");
-        while(true){
+        while (true) {
             int choice = Integer.valueOf(scanner.nextLine());
             if (choice != 1 && choice != 2)
                 break;
@@ -34,25 +38,32 @@ class paginatorUser{
             }
             System.out.print("\033[H\033[2J");
             System.out.flush();
-            int startPage = (currentPage - 1)*10;
+            int startPage = (currentPage - 1) * 10;
             endPage = resultRows.size() - 1;
-            if(startPage + 9 < endPage)endPage = startPage + 9;
-            printPartialTable(resultRows, startPage,  endPage);
+            if (startPage + 9 < endPage)
+                endPage = startPage + 9;
+            printPartialTable(resultRows, startPage, endPage);
             System.out.println("Page " + String.valueOf(currentPage) + " of " + String.valueOf(maxPages));
             System.out.println("Enter 1 to go to previous page, 2 to go to next page, any other key to exit.");
         }
         scanner.close();
     }
-    public void printPartialTable(ArrayList<String> rs, int startRow, int endRow){
-        System.out.println("+---------------+---------------+----------+----------+----------------+---------------+---------------+--------------+");
-        System.out.println("|UserID         |Username       |Rating    |MaxRating |Organisation    |City           |Country        |Contribution  |");
-        System.out.println("+---------------+---------------+----------+----------+----------------+---------------+---------------+--------------+");
-        for(int i = startRow; i<=endRow; i++){
+
+    public void printPartialTable(ArrayList<String> rs, int startRow, int endRow) {
+        System.out.println(
+                "+---------------+---------------+----------+----------+----------------+---------------+---------------+--------------+");
+        System.out.println(
+                "|UserID         |Username       |Rating    |MaxRating |Organisation    |City           |Country        |Contribution  |");
+        System.out.println(
+                "+---------------+---------------+----------+----------+----------------+---------------+---------------+--------------+");
+        for (int i = startRow; i <= endRow; i++) {
             System.out.print(rs.get(i));
         }
-        System.out.println("+---------------+---------------+----------+----------+----------------+---------------+---------------+--------------+");
+        System.out.println(
+                "+---------------+---------------+----------+----------+----------------+---------------+---------------+--------------+");
     }
 }
+
 public class User {
 
     public static void printTable(ResultSet rs) {
@@ -60,9 +71,9 @@ public class User {
         pg.paginate(rs);
     }
 
-    public static void displayAll(Connection con) {
-        ResultSet rs = DisplayInterface.displayTable(con,"User");
-        if(rs==null)
+    public static void displayAll(Connection con, Boolean checkSort) {
+        ResultSet rs = DisplayInterface.displayTable(con, "User", checkSort);
+        if (rs == null)
             return;
         printTable(rs);
     }
@@ -213,9 +224,11 @@ public class User {
         }
     }
 
-    public static void searchByRating(Connection con, String Rating, String operator) {
+    public static void searchByRating(Connection con, String Rating, String operator, Boolean checkSort) {
         try {
             String query = "select * from user where Rating " + operator + " ?";
+            if (checkSort)
+                query += " order by Rating desc";
             PreparedStatement preparedStmt = con.prepareStatement(query);
             preparedStmt.setInt(1, Integer.parseInt(Rating));
             ResultSet rs = preparedStmt.executeQuery();
@@ -230,9 +243,11 @@ public class User {
         }
     }
 
-    public static void searchByMaxRating(Connection con, String Rating, String operator) {
+    public static void searchByMaxRating(Connection con, String Rating, String operator, Boolean checkSort) {
         try {
             String query = "select * from user where MaxRating " + operator + " ?";
+            if (checkSort)
+                query += " order by MaxRating desc";
             PreparedStatement preparedStmt = con.prepareStatement(query);
             preparedStmt.setInt(1, Integer.parseInt(Rating));
             ResultSet rs = preparedStmt.executeQuery();
@@ -315,9 +330,11 @@ public class User {
         }
     }
 
-    public static void searchByContribution(Connection con, String Rating, String operator) {
+    public static void searchByContribution(Connection con, String Rating, String operator, Boolean checkSort) {
         try {
             String query = "select * from user where Contribution " + operator + " ?";
+            if (checkSort)
+                query += " order by Contribution desc";
             PreparedStatement preparedStmt = con.prepareStatement(query);
             preparedStmt.setInt(1, Integer.parseInt(Rating));
             ResultSet rs = preparedStmt.executeQuery();
