@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.sql.*;
 import java.util.Scanner;
 import util.DisplayInterface;
+
 class paginatorProblem{
     public void paginate(ResultSet rs){
         ArrayList<String> resultRows = new ArrayList<>();
