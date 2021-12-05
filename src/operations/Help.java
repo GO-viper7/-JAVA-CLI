@@ -17,6 +17,7 @@ public class Help {
 
     public void printProblemHelp() {
         String[] prob = { "-prob -disp", "-prob -ins <ProblemID> <Author> <ProblemRating> <ContestID>", "-prob -del <ProblemID>",
+                "-prob -cnt","-prob -sum","-prob -avg",
                 "-prob -upd -ratById <ProblemID> <ProblemRating>", "-prob -upd -ratByConId <ContestID> <ProblemRating>",
                 "-prob -s -byId <ProblemID>", "-prob -s -byConId <ContestID>", "-prob -s -byRat -gt <ProblemRating>",
                 "-prob -s -byRat -lt <ProblemRating>",
@@ -25,6 +26,7 @@ public class Help {
                 "-prob -sort -byConId", "-prob -sort -byRat"};
         String[] des1 = { "Displays Problems Table", "Insert Data into Problems Table resepctively",
                 "Delete Data from Problems Table using ProblemID",
+                "View Number of Records in Problem Table","View Sum of Problem Rating in Problem Table","View Average of Problem Rating in Problem Table",
                 "Update ProblemRating for the corresponding ProblemID",
                 "Update ProblemRating for the corresponding ContestID",
                 "Search Problems by providing ProblemID", "Search Problems by providing ContestID",
