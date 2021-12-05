@@ -61,6 +61,51 @@ public class User {
             System.out.println("Wrong command\nType \"-h\" to get help");
         }
     }
+    
+    public static void displayCount(Connection con) {
+        try {
+            ResultSet rs = DisplayInterface.displayTable(con,"User");
+            try{ 
+                Integer cnt=0;
+                do {
+                    cnt=cnt+1;
+               } while (rs.next());
+               System.out.println("Number of Records in User Table : "+cnt);
+            }catch(SQLException e){
+                System.out.println("Error: " + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Wrong command\nType \"-h\" to get help");
+        }   
+    }
+
+    public static void displaySumContri(Connection con) {
+        ResultSet rs = DisplayInterface.displayTable(con,"User");
+        try{ 
+            Integer sum=0;
+            do {
+                sum+=(rs.getInt(8));
+            } while (rs.next());
+            System.out.println("Sum of Contribution of Users in User Table : "+sum);
+        }catch(SQLException e){
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    public static void displayAvg(Connection con) {
+        ResultSet rs = DisplayInterface.displayTable(con,"User");
+        try{ 
+            Integer sum=0,cnt=0;
+            do {
+                sum+=(rs.getInt(8));
+                cnt+=1;
+            } while (rs.next());
+            System.out.println("Average Contribution of Users in User Table : "+sum/cnt);
+        }catch(SQLException e){
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
 
     public static void updateRating(Connection con, String UserID, String Rating) {
         try {
