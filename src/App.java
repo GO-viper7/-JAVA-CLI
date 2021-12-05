@@ -61,7 +61,7 @@ public class App {
             case "-prob":
                 switch (args[1]) {
                     case "-disp":
-                        if (args.length > 2) {
+                        if (args.length > 2 && args[2].equals("-sort")) {
                             Problem.displayAll(conn, true);
                         }
                         Problem.displayAll(conn, false);
@@ -95,31 +95,31 @@ public class App {
                             case "-byRat":
                                 switch (args[3]) {
                                     case "-gt":
-                                        if (args.length > 5) {
+                                        if (args.length > 5 && args[5].equals("-sort")) {
                                             queries.Problem.searchByRating(conn, args[4], ">", true);
                                         }
                                         queries.Problem.searchByRating(conn, args[4], ">", false);
                                         break;
                                     case "-lt":
-                                        if (args.length > 5) {
+                                        if (args.length > 5 && args[5].equals("-sort")) {
                                             queries.Problem.searchByRating(conn, args[4], "<", true);
                                         }
                                         queries.Problem.searchByRating(conn, args[4], "<", false);
                                         break;
                                     case "-lte":
-                                        if (args.length > 5) {
+                                        if (args.length > 5 && args[5].equals("-sort")) {
                                             queries.Problem.searchByRating(conn, args[4], "<=", true);
                                         }
                                         queries.Problem.searchByRating(conn, args[4], "<=", false);
                                         break;
                                     case "-gte":
-                                        if (args.length > 5) {
+                                        if (args.length > 5 && args[5].equals("-sort")) {
                                             queries.Problem.searchByRating(conn, args[4], ">=", true);
                                         }
                                         queries.Problem.searchByRating(conn, args[4], ">=", false);
                                         break;
                                     case "-eq":
-                                        if (args.length > 5) {
+                                        if (args.length > 5 && args[5].equals("-sort")) {
                                             queries.Problem.searchByRating(conn, args[4], "=", true);
                                         }
                                         queries.Problem.searchByRating(conn, args[4], "=", false);
@@ -146,7 +146,7 @@ public class App {
             case "-user":
                 switch (args[1]) {
                     case "-disp":
-                        if (args.length > 2) {
+                        if (args.length > 2 && args[2].equals("-sort")) {
                             User.displayAll(conn, true);
                         }
                         queries.User.displayAll(conn, false);
@@ -190,31 +190,31 @@ public class App {
                             case "-byRat":
                                 switch (args[3]) {
                                     case "-gt":
-                                        if (args.length > 5) {
+                                        if (args.length > 5 && args[5].equals("-sort")) {
                                             queries.User.searchByRating(conn, args[4], ">", true);
                                         }
                                         queries.User.searchByRating(conn, args[4], ">", false);
                                         break;
                                     case "-lt":
-                                        if (args.length > 5) {
+                                        if (args.length > 5 && args[5].equals("-sort")) {
                                             queries.User.searchByRating(conn, args[4], "<", true);
                                         }
                                         queries.User.searchByRating(conn, args[4], "<", false);
                                         break;
                                     case "-lte":
-                                        if (args.length > 5) {
+                                        if (args.length > 5 && args[5].equals("-sort")) {
                                             queries.User.searchByRating(conn, args[4], "<=", true);
                                         }
                                         queries.User.searchByRating(conn, args[4], "<=", false);
                                         break;
                                     case "-gte":
-                                        if (args.length > 5) {
+                                        if (args.length > 5 && args[5].equals("-sort")) {
                                             queries.User.searchByRating(conn, args[4], ">=", true);
                                         }
                                         queries.User.searchByRating(conn, args[4], ">=", false);
                                         break;
                                     case "eq":
-                                        if (args.length > 5) {
+                                        if (args.length > 5 && args[5].equals("-sort")) {
                                             queries.User.searchByRating(conn, args[4], "=", true);
                                         }
                                         queries.User.searchByRating(conn, args[4], "=", false);
@@ -224,31 +224,31 @@ public class App {
                             case "byMaxRat":
                                 switch (args[3]) {
                                     case "-gt":
-                                        if (args.length > 5) {
+                                        if (args.length > 5 && args[5].equals("-sort")) {
                                             queries.User.searchByMaxRating(conn, args[4], ">", true);
                                         }
                                         queries.User.searchByMaxRating(conn, args[4], ">", false);
                                         break;
                                     case "-lt":
-                                        if (args.length > 5) {
+                                        if (args.length > 5 && args[5].equals("-sort")) {
                                             queries.User.searchByMaxRating(conn, args[4], "<", true);
                                         }
                                         queries.User.searchByMaxRating(conn, args[4], "<", false);
                                         break;
                                     case "-lte":
-                                        if (args.length > 5) {
+                                        if (args.length > 5 && args[5].equals("-sort")) {
                                             queries.User.searchByMaxRating(conn, args[4], "<=", true);
                                         }
                                         queries.User.searchByMaxRating(conn, args[4], "<=", false);
                                         break;
                                     case "-gte":
-                                        if (args.length > 5) {
+                                        if (args.length > 5 && args[5].equals("-sort")) {
                                             queries.User.searchByMaxRating(conn, args[4], ">=", true);
                                         }
                                         queries.User.searchByMaxRating(conn, args[4], ">=", false);
                                         break;
                                     case "eq":
-                                        if (args.length > 5) {
+                                        if (args.length > 5 && args[5].equals("-sort")) {
                                             queries.User.searchByMaxRating(conn, args[4], "=", true);
                                         }
                                         queries.User.searchByMaxRating(conn, args[4], "=", false);
@@ -270,31 +270,31 @@ public class App {
                             case "-byContri":
                                 switch (args[3]) {
                                     case "-gt":
-                                        if (args.length > 5) {
+                                        if (args.length > 5 && args[5].equals("-sort")) {
                                             queries.User.searchByContribution(conn, args[4], ">", true);
                                         }
                                         queries.User.searchByContribution(conn, args[4], ">", false);
                                         break;
                                     case "-lt":
-                                        if (args.length > 5) {
+                                        if (args.length > 5 && args[5].equals("-sort")) {
                                             queries.User.searchByContribution(conn, args[4], "<", true);
                                         }
                                         queries.User.searchByContribution(conn, args[4], "<", false);
                                         break;
                                     case "-lte":
-                                        if (args.length > 5) {
+                                        if (args.length > 5 && args[5].equals("-sort")) {
                                             queries.User.searchByContribution(conn, args[4], "<=", true);
                                         }
                                         queries.User.searchByContribution(conn, args[4], "<=", false);
                                         break;
                                     case "-gte":
-                                        if (args.length > 5) {
+                                        if (args.length > 5 && args[5].equals("-sort")) {
                                             queries.User.searchByContribution(conn, args[4], ">=", true);
                                         }
                                         queries.User.searchByContribution(conn, args[4], ">=", false);
                                         break;
                                     case "-eq":
-                                        if (args.length > 5) {
+                                        if (args.length > 5 && args[5].equals("-sort")) {
                                             queries.User.searchByContribution(conn, args[4], "=", true);
                                         }
                                         queries.User.searchByContribution(conn, args[4], "=", false);
@@ -373,7 +373,10 @@ public class App {
             case "-con":
                 switch (args[1]) {
                     case "-disp":
-                        queries.Contest.displayAll(conn);
+                        if (args.length > 2 && args[2].equals("-sort")) {
+                            queries.Contest.displayAll(conn, true);
+                        }
+                        queries.Contest.displayAll(conn, false);
                         codeforces.disconnect(conn);
                         break;
                     case "-ins":
@@ -412,31 +415,31 @@ public class App {
                                         if (args.length > 5) {
                                             queries.Contest.searchByDivision(conn, args[4], ">", true);
                                         }
-                                        queries.Contest.searchByDivision(conn, args[4], ">",false);
+                                        queries.Contest.searchByDivision(conn, args[4], ">", false);
                                         break;
                                     case "-lt":
                                         if (args.length > 5) {
                                             queries.Contest.searchByDivision(conn, args[4], "<", true);
                                         }
-                                        queries.Contest.searchByDivision(conn, args[4], "<",false);
+                                        queries.Contest.searchByDivision(conn, args[4], "<", false);
                                         break;
                                     case "-lte":
                                         if (args.length > 5) {
                                             queries.Contest.searchByDivision(conn, args[4], "<=", true);
                                         }
-                                        queries.Contest.searchByDivision(conn, args[4], "<=",false);
+                                        queries.Contest.searchByDivision(conn, args[4], "<=", false);
                                         break;
                                     case "-gte":
                                         if (args.length > 5) {
                                             queries.Contest.searchByDivision(conn, args[4], ">=", true);
                                         }
-                                        queries.Contest.searchByDivision(conn, args[4], ">=",false);
+                                        queries.Contest.searchByDivision(conn, args[4], ">=", false);
                                         break;
                                     case "-eq":
                                         if (args.length > 5) {
                                             queries.Contest.searchByDivision(conn, args[4], "=", true);
                                         }
-                                        queries.Contest.searchByDivision(conn, args[4], "=",false);
+                                        queries.Contest.searchByDivision(conn, args[4], "=", false);
                                         break;
                                 }
                                 break;

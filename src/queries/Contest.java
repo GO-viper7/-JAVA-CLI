@@ -70,8 +70,8 @@ public class Contest {
         pg.paginate(rs);
     }
 
-    public static void displayAll(Connection con) {
-        ResultSet rs = DisplayInterface.displayTable(con, "Contest", false);
+    public static void displayAll(Connection con,Boolean checkSort) {
+        ResultSet rs = DisplayInterface.displayTable(con, "Contest", checkSort);
         if (rs == null)
             return;
         printTable(rs);

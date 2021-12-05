@@ -9,16 +9,16 @@ public interface DisplayInterface {
             String query = "SELECT * FROM " + tableName;
             if (checkSort) {
                 if (tableName == "Problem") {
-                    query += "order by problemRating";
+                    query += " order by problemRating";
                 }
                 if (tableName == "User") {
-                    query += "order by userRating";
+                    query += " order by Rating";
                 }
                 if (tableName == "Subbmission") {
-                    query += "order by submissionId";
+                    query += " order by submissionId";
                 }
-                if (tableName == "ContestId") {
-                    query += "order by division";
+                if (tableName == "Contest") {
+                    query += " order by division";
                 }
             }
             ResultSet rs = st.executeQuery(query);
