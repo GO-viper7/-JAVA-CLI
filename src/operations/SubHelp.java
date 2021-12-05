@@ -15,7 +15,7 @@ public class SubHelp extends Help {
 
     public void printUserHelp() {
         String[] user = { "-user -disp", "-user -ins <UserID> <Username> <Rating> <MaxRating>", "      <Organisation> <City> <Country> <Contribution>",
-                "-user -del <UserID>", "-user -upd -ratById <UserID> <Rating>",
+                "-user -cnt","-user -sum","-user -avg","-user -del <UserID>", "-user -upd -ratById <UserID> <Rating>",
                 "-user -upd -maxratById <UserID> <MaxRating>", "-user -upd -orgById <UserID> <Name of Organisation>",
                 "-user -upd -cityById <UserID> <Name of City>", "-user -upd -couById <UserID> <Country>",
                 "-user -upd -contriById <UserID> <Contribution>", "-user -s -byId <UserID>",
@@ -30,6 +30,7 @@ public class SubHelp extends Help {
                 "-user -s -byContri -lte <Contribution>", "-user -s -byContri -eq <Contribution>", "-user -sort -byId",
                 "-user -sort -byRat", "-user -sort -byMaxRat", "-user -sort -byContri" };
         String[] des2 = { "Displays Users Table", "Insert Data into Users Table resepctively"," ",
+                "View Number of Records in User Table","View Sum of Contributions in User Table","View Average of Contributions in User Table",
                 "Delete Data from Users Table for respective UserID", "Update Rating by providing UserID",
                 "Update MaxRating by providing UserID",
                 "Update Name of Organisation by providing UserID", "Update Name of City by providing UserID",
@@ -70,13 +71,14 @@ public class SubHelp extends Help {
     }
 
     public void printContestHelp() {
-        String[] contest = { "-con -disp", "-con -ins <ContestID> <Author> <Division>","      <StartTime> <EndTime>", "-con -del <ContestID>", "-con -upd -aut <ContestID> <Author>",
+        String[] contest = { "-con -disp", "-con -ins <ContestID> <Author> <Division>","      <StartTime> <EndTime>","-con -cnt","-con -sum","-con -avg", "-con -del <ContestID>", "-con -upd -aut <ContestID> <Author>",
                 "-con -upd -div <ContestID> <Division>", "-con -upd -stime <ContestID> <StartTime>",
                 "-con -upd -etime <ContestID> <EndTime>", "-con -s -byId <ContestID>","-con -s -byAut <Author>","-con -s -byDiv -gt <Division>",
                 "-con -s -byDiv -lt <Division>", "-con -s -byDiv -gte <Division>", "-con -s -byDiv -lte <Division>",
                 "-con -s -byDiv -eq <Division>",
                 "-con -s -byStime <StartTime>", "-con -s -byEtime <EndTime>" };
         String[] des4 = { "Displays Contests Table", "Insert Data into Contests Table resepctively"," ",
+                "View Number of Records in Contest Table","View Sum of Divisions in Contest Table","View Average of Divisions in Contest Table",
                 "Delete Data from Contests Table for respective ContestID", "Update AuthorName by providing ContestID",
                 "Update Division by providing ContestID", "Update StartTime of Contest by providing ContestID",
                 "Update EndTime of Contest by providing ContestID",
