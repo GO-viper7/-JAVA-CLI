@@ -61,7 +61,10 @@ public class App {
             case "-prob":
                 switch (args[1]) {
                     case "-disp":
-                        Problem.displayAll(conn);
+                        if (args.length > 2) {
+                            Problem.displayAll(conn, true);
+                        }
+                        Problem.displayAll(conn, false);
                         codeforces.disconnect(conn);
                         break;
                     case "-ins":
@@ -92,19 +95,34 @@ public class App {
                             case "-byRat":
                                 switch (args[3]) {
                                     case "-gt":
-                                        queries.Problem.searchByRating(conn, args[4], ">");
+                                        if (args.length > 5) {
+                                            queries.Problem.searchByRating(conn, args[4], ">", true);
+                                        }
+                                        queries.Problem.searchByRating(conn, args[4], ">", false);
                                         break;
                                     case "-lt":
-                                        queries.Problem.searchByRating(conn, args[4], "<");
+                                        if (args.length > 5) {
+                                            queries.Problem.searchByRating(conn, args[4], "<", true);
+                                        }
+                                        queries.Problem.searchByRating(conn, args[4], "<", false);
                                         break;
                                     case "-lte":
-                                        queries.Problem.searchByRating(conn, args[4], "<=");
+                                        if (args.length > 5) {
+                                            queries.Problem.searchByRating(conn, args[4], "<=", true);
+                                        }
+                                        queries.Problem.searchByRating(conn, args[4], "<=", false);
                                         break;
                                     case "-gte":
-                                        queries.Problem.searchByRating(conn, args[4], ">=");
+                                        if (args.length > 5) {
+                                            queries.Problem.searchByRating(conn, args[4], ">=", true);
+                                        }
+                                        queries.Problem.searchByRating(conn, args[4], ">=", false);
                                         break;
                                     case "-eq":
-                                        queries.Problem.searchByRating(conn, args[4], "=");
+                                        if (args.length > 5) {
+                                            queries.Problem.searchByRating(conn, args[4], "=", true);
+                                        }
+                                        queries.Problem.searchByRating(conn, args[4], "=", false);
                                         break;
                                 }
                                 break;
@@ -128,7 +146,10 @@ public class App {
             case "-user":
                 switch (args[1]) {
                     case "-disp":
-                        queries.User.displayAll(conn);
+                        if (args.length > 2) {
+                            User.displayAll(conn, true);
+                        }
+                        queries.User.displayAll(conn, false);
                         codeforces.disconnect(conn);
                         break;
                     case "-ins":
@@ -169,38 +190,68 @@ public class App {
                             case "-byRat":
                                 switch (args[3]) {
                                     case "-gt":
-                                        queries.User.searchByRating(conn, args[4], ">");
+                                        if (args.length > 5) {
+                                            queries.User.searchByRating(conn, args[4], ">", true);
+                                        }
+                                        queries.User.searchByRating(conn, args[4], ">", false);
                                         break;
                                     case "-lt":
-                                        queries.User.searchByRating(conn, args[4], "<");
+                                        if (args.length > 5) {
+                                            queries.User.searchByRating(conn, args[4], "<", true);
+                                        }
+                                        queries.User.searchByRating(conn, args[4], "<", false);
                                         break;
                                     case "-lte":
-                                        queries.User.searchByRating(conn, args[4], "<=");
+                                        if (args.length > 5) {
+                                            queries.User.searchByRating(conn, args[4], "<=", true);
+                                        }
+                                        queries.User.searchByRating(conn, args[4], "<=", false);
                                         break;
                                     case "-gte":
-                                        queries.User.searchByRating(conn, args[4], ">=");
+                                        if (args.length > 5) {
+                                            queries.User.searchByRating(conn, args[4], ">=", true);
+                                        }
+                                        queries.User.searchByRating(conn, args[4], ">=", false);
                                         break;
                                     case "eq":
-                                        queries.User.searchByRating(conn, args[4], "=");
+                                        if (args.length > 5) {
+                                            queries.User.searchByRating(conn, args[4], "=", true);
+                                        }
+                                        queries.User.searchByRating(conn, args[4], "=", false);
                                         break;
                                 }
                                 break;
                             case "byMaxRat":
                                 switch (args[3]) {
                                     case "-gt":
-                                        queries.User.searchByMaxRating(conn, args[4], ">");
+                                        if (args.length > 5) {
+                                            queries.User.searchByMaxRating(conn, args[4], ">", true);
+                                        }
+                                        queries.User.searchByMaxRating(conn, args[4], ">", false);
                                         break;
                                     case "-lt":
-                                        queries.User.searchByMaxRating(conn, args[4], "<");
+                                        if (args.length > 5) {
+                                            queries.User.searchByMaxRating(conn, args[4], "<", true);
+                                        }
+                                        queries.User.searchByMaxRating(conn, args[4], "<", false);
                                         break;
                                     case "-lte":
-                                        queries.User.searchByMaxRating(conn, args[4], "<=");
+                                        if (args.length > 5) {
+                                            queries.User.searchByMaxRating(conn, args[4], "<=", true);
+                                        }
+                                        queries.User.searchByMaxRating(conn, args[4], "<=", false);
                                         break;
                                     case "-gte":
-                                        queries.User.searchByMaxRating(conn, args[4], ">=");
+                                        if (args.length > 5) {
+                                            queries.User.searchByMaxRating(conn, args[4], ">=", true);
+                                        }
+                                        queries.User.searchByMaxRating(conn, args[4], ">=", false);
                                         break;
                                     case "eq":
-                                        queries.User.searchByMaxRating(conn, args[4], "=");
+                                        if (args.length > 5) {
+                                            queries.User.searchByMaxRating(conn, args[4], "=", true);
+                                        }
+                                        queries.User.searchByMaxRating(conn, args[4], "=", false);
                                         break;
                                 }
                                 break;
@@ -219,19 +270,34 @@ public class App {
                             case "-byContri":
                                 switch (args[3]) {
                                     case "-gt":
-                                        queries.User.searchByContribution(conn, args[4], ">");
+                                        if (args.length > 5) {
+                                            queries.User.searchByContribution(conn, args[4], ">", true);
+                                        }
+                                        queries.User.searchByContribution(conn, args[4], ">", false);
                                         break;
                                     case "-lt":
-                                        queries.User.searchByContribution(conn, args[4], "<");
+                                        if (args.length > 5) {
+                                            queries.User.searchByContribution(conn, args[4], "<", true);
+                                        }
+                                        queries.User.searchByContribution(conn, args[4], "<", false);
                                         break;
                                     case "-lte":
-                                        queries.User.searchByContribution(conn, args[4], "<=");
+                                        if (args.length > 5) {
+                                            queries.User.searchByContribution(conn, args[4], "<=", true);
+                                        }
+                                        queries.User.searchByContribution(conn, args[4], "<=", false);
                                         break;
                                     case "-gte":
-                                        queries.User.searchByContribution(conn, args[4], ">=");
+                                        if (args.length > 5) {
+                                            queries.User.searchByContribution(conn, args[4], ">=", true);
+                                        }
+                                        queries.User.searchByContribution(conn, args[4], ">=", false);
                                         break;
                                     case "-eq":
-                                        queries.User.searchByContribution(conn, args[4], "=");
+                                        if (args.length > 5) {
+                                            queries.User.searchByContribution(conn, args[4], "=", true);
+                                        }
+                                        queries.User.searchByContribution(conn, args[4], "=", false);
                                         break;
                                 }
                                 break;
@@ -343,19 +409,34 @@ public class App {
                             case "-byDiv":
                                 switch (args[3]) {
                                     case "-gt":
-                                        queries.Contest.searchByDivision(conn, args[4], ">");
+                                        if (args.length > 5) {
+                                            queries.Contest.searchByDivision(conn, args[4], ">", true);
+                                        }
+                                        queries.Contest.searchByDivision(conn, args[4], ">",false);
                                         break;
                                     case "-lt":
-                                        queries.Contest.searchByDivision(conn, args[4], "<");
+                                        if (args.length > 5) {
+                                            queries.Contest.searchByDivision(conn, args[4], "<", true);
+                                        }
+                                        queries.Contest.searchByDivision(conn, args[4], "<",false);
                                         break;
                                     case "-lte":
-                                        queries.Contest.searchByDivision(conn, args[4], "<=");
+                                        if (args.length > 5) {
+                                            queries.Contest.searchByDivision(conn, args[4], "<=", true);
+                                        }
+                                        queries.Contest.searchByDivision(conn, args[4], "<=",false);
                                         break;
                                     case "-gte":
-                                        queries.Contest.searchByDivision(conn, args[4], ">=");
+                                        if (args.length > 5) {
+                                            queries.Contest.searchByDivision(conn, args[4], ">=", true);
+                                        }
+                                        queries.Contest.searchByDivision(conn, args[4], ">=",false);
                                         break;
                                     case "-eq":
-                                        queries.Contest.searchByDivision(conn, args[4], "=");
+                                        if (args.length > 5) {
+                                            queries.Contest.searchByDivision(conn, args[4], "=", true);
+                                        }
+                                        queries.Contest.searchByDivision(conn, args[4], "=",false);
                                         break;
                                 }
                                 break;

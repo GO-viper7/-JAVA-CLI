@@ -1,14 +1,29 @@
 package util;
+
 import java.sql.*;
 
 public interface DisplayInterface {
-    public static ResultSet displayTable(Connection con,String tableName) {
+    public static ResultSet displayTable(Connection con, String tableName, Boolean checkSort) {
         try {
             Statement st = con.createStatement();
             String query = "SELECT * FROM " + tableName;
+            if (checkSort) {
+                if (tableName == "Problem") {
+                    query += "order by problemRating";
+                }
+                if (tableName == "User") {
+                    query += "order by userRating";
+                }
+                if (tableName == "Subbmission") {
+                    query += "order by submissionId";
+                }
+                if (tableName == "ContestId") {
+                    query += "order by division";
+                }
+            }
             ResultSet rs = st.executeQuery(query);
             if (rs.next() == false) {
-                System.out.println("No Result from "+tableName);
+                System.out.println("No Result from " + tableName);
             } else {
                 return rs;
             }

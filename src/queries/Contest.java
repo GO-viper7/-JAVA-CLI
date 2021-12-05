@@ -1,18 +1,74 @@
 package queries;
+
 import java.sql.*;
 import java.util.ArrayList;
 import operations.Paginate;
 import util.DisplayInterface;
 
+<<<<<<< HEAD
 class paginatorContest extends Paginate{
     public void printPartialTable(ArrayList<String> rs, int startRow, int endRow){
         System.out.println("+---------------+---------------+----------+--------------------+------------------------+");
         System.out.println("|ContestID      |Author         |Division  |StartTime           |EndTime                 |");
         System.out.println("+---------------+---------------+----------+--------------------+------------------------+");
         for(int i = startRow; i<=endRow; i++){
+=======
+class paginatorContest {
+    public void paginate(ResultSet rs) {
+        ArrayList<String> resultRows = new ArrayList<>();
+        try {
+            do {
+                resultRows.add(String.format("|%-15d|%-15s|%-10d|%-20s|%-24s|\n", rs.getInt(1), rs.getString(2),
+                        rs.getInt(3), rs.getString(4), rs.getString(5)));
+            } while (rs.next());
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        int maxPages = (resultRows.size() + 9) / 10;
+        int currentPage = 1;
+        Scanner scanner = new Scanner(System.in);
+        int endPage = 9;
+        if (resultRows.size() < 10)
+            endPage = resultRows.size() - 1;
+        printPartialTable(resultRows, 0, endPage);
+        System.out.println("Page 1 of " + String.valueOf(maxPages));
+        System.out.println("Enter 1 to go to previous page, 2 to go to next page, any other key to exit.");
+        while (true) {
+            int choice = Integer.valueOf(scanner.nextLine());
+            if (choice != 1 && choice != 2)
+                break;
+            else {
+                if (choice == 1 && currentPage > 1)
+                    currentPage--;
+                else if (choice == 2 && currentPage < maxPages)
+                    currentPage++;
+            }
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+            int startPage = (currentPage - 1) * 10;
+            endPage = resultRows.size() - 1;
+            if (startPage + 9 < endPage)
+                endPage = startPage + 9;
+            printPartialTable(resultRows, startPage, endPage);
+            System.out.println("Page " + String.valueOf(currentPage) + " of " + String.valueOf(maxPages));
+            System.out.println("Enter 1 to go to previous page, 2 to go to next page, any other key to exit.");
+        }
+        scanner.close();
+    }
+
+    public void printPartialTable(ArrayList<String> rs, int startRow, int endRow) {
+        System.out
+                .println("+---------------+---------------+----------+--------------------+------------------------+");
+        System.out
+                .println("|ContestID      |Author         |Division  |StartTime           |EndTime                 |");
+        System.out
+                .println("+---------------+---------------+----------+--------------------+------------------------+");
+        for (int i = startRow; i <= endRow; i++) {
+>>>>>>> 08a15016973886bfc64e81cbadfb0a22697809af
             System.out.print(rs.get(i));
         }
-        System.out.println("+---------------+---------------+----------+--------------------+------------------------+");
+        System.out
+                .println("+---------------+---------------+----------+--------------------+------------------------+");
     }
     public ArrayList<String> getRows(ResultSet rs){
         ArrayList<String> resultRows = new ArrayList<>();
@@ -26,16 +82,17 @@ class paginatorContest extends Paginate{
         return resultRows;
     }
 }
+
 public class Contest {
-    
+
     public static void printTable(ResultSet rs) {
         paginatorContest pg = new paginatorContest();
         pg.paginate(rs);
     }
 
     public static void displayAll(Connection con) {
-        ResultSet rs = DisplayInterface.displayTable(con,"Contest");
-        if(rs==null)
+        ResultSet rs = DisplayInterface.displayTable(con, "Contest", false);
+        if (rs == null)
             return;
         printTable(rs);
     }
@@ -61,8 +118,8 @@ public class Contest {
         }
     }
 
-    public static int updateAll(Connection con, String tuple){
-        try{
+    public static int updateAll(Connection con, String tuple) {
+        try {
             int success = 0;
             String[] args = tuple.split(" ");
             String query = "update Contest set Author = ?, Division = ?, StartTime = ?, EndTime = ? where ContestID = ?";
@@ -192,9 +249,12 @@ public class Contest {
         }
     }
 
-    public static void searchByDivision(Connection con, String Division, String operator) {
+    public static void searchByDivision(Connection con, String Division, String operator, Boolean checkSort) {
         try {
             String query = "select * from Contest where Division " + operator + " ?";
+            if (checkSort) {
+                query += " order by Division";
+            }
             PreparedStatement preparedStmt = con.prepareStatement(query);
             preparedStmt.setInt(1, Integer.parseInt(Division));
             ResultSet rs = preparedStmt.executeQuery();

@@ -34,7 +34,7 @@ public class Submission {
     }
 
     public static void displayAll(Connection con) {
-        ResultSet rs = DisplayInterface.displayTable(con, "Submission");
+        ResultSet rs = DisplayInterface.displayTable(con, "Submission",false);
         if (rs == null)
             return;
         printTable(rs);
