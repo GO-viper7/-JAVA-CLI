@@ -64,7 +64,7 @@ public class User {
     
     public static void displayCount(Connection con) {
         try {
-            ResultSet rs = DisplayInterface.displayTable(con,"User");
+            ResultSet rs = DisplayInterface.displayTable(con,"User",false);
             try{ 
                 Integer cnt=0;
                 do {
@@ -81,7 +81,7 @@ public class User {
     }
 
     public static void displaySumContri(Connection con) {
-        ResultSet rs = DisplayInterface.displayTable(con,"User");
+        ResultSet rs = DisplayInterface.displayTable(con,"User",false);
         try{ 
             Integer sum=0;
             do {
@@ -94,7 +94,7 @@ public class User {
     }
 
     public static void displayAvg(Connection con) {
-        ResultSet rs = DisplayInterface.displayTable(con,"User");
+        ResultSet rs = DisplayInterface.displayTable(con,"User",false);
         try{ 
             Integer sum=0,cnt=0;
             do {
