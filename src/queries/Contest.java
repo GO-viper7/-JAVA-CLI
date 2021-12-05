@@ -62,6 +62,51 @@ public class Contest {
             System.out.println("Wrong command\nType \"-h\" to get help");
         }
     }
+    
+    public static void displayCount(Connection con) {
+        try {
+            ResultSet rs = DisplayInterface.displayTable(con,"Contest");
+            try{ 
+                Integer cnt=0;
+                do {
+                    cnt=cnt+1;
+               } while (rs.next());
+               System.out.println("Number of Records in Contest Table : "+cnt);
+            }catch(SQLException e){
+                System.out.println("Error: " + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Wrong command\nType \"-h\" to get help");
+        }   
+    }
+
+    public static void displaySumDiv(Connection con) {
+        ResultSet rs = DisplayInterface.displayTable(con,"Contest");
+        try{ 
+            Integer sum=0;
+            do {
+                sum+=(rs.getInt(3));
+            } while (rs.next());
+            System.out.println("Sum of Divisions of Contests in Problem Table : "+sum);
+        }catch(SQLException e){
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    public static void displayAvg(Connection con) {
+        ResultSet rs = DisplayInterface.displayTable(con,"Contest");
+        try{ 
+            Integer sum=0,cnt=0;
+            do {
+                sum+=(rs.getInt(3));
+                cnt+=1;
+            } while (rs.next());
+            System.out.println("Average Division of Contests in Contest Table : "+sum/cnt);
+        }catch(SQLException e){
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
 
     public static int updateAll(Connection con, String tuple) {
         try {
