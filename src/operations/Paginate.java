@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 abstract public class Paginate {
     public void paginate(ResultSet rs){
-
         ArrayList<String> resultRows = getRows(rs);
         int maxPages = (resultRows.size() + 9)/10;
         int currentPage = 1;
@@ -30,8 +29,7 @@ abstract public class Paginate {
                 else if (choice == 2 && currentPage < maxPages)
                     currentPage++;
             }
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
+            clrscr();
             int startPage = (currentPage - 1)*10;
             endPage = resultRows.size() - 1;
             if(startPage + 9 < endPage)endPage = startPage + 9;
@@ -40,6 +38,10 @@ abstract public class Paginate {
             System.out.println("Enter 1 to go to previous page, 2 to go to next page, any other key to exit.");
         }
         scanner.close();
+    }
+    public static void clrscr() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
     abstract public ArrayList<String> getRows(ResultSet rs);
     abstract public void printPartialTable(ArrayList<String> rs, int startRow, int endRow);
