@@ -65,7 +65,7 @@ public class Contest {
     
     public static void displayCount(Connection con) {
         try {
-            ResultSet rs = DisplayInterface.displayTable(con,"Contest");
+            ResultSet rs = DisplayInterface.displayTable(con,"Contest",false);
             try{ 
                 Integer cnt=0;
                 do {
@@ -82,7 +82,7 @@ public class Contest {
     }
 
     public static void displaySumDiv(Connection con) {
-        ResultSet rs = DisplayInterface.displayTable(con,"Contest");
+        ResultSet rs = DisplayInterface.displayTable(con,"Contest",false);
         try{ 
             Integer sum=0;
             do {
@@ -95,7 +95,7 @@ public class Contest {
     }
 
     public static void displayAvg(Connection con) {
-        ResultSet rs = DisplayInterface.displayTable(con,"Contest");
+        ResultSet rs = DisplayInterface.displayTable(con,"Contest",false);
         try{ 
             Integer sum=0,cnt=0;
             do {
