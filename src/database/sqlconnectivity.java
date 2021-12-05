@@ -6,7 +6,7 @@ public class sqlconnectivity {
     public Connection connectSql() throws ClassNotFoundException{
         Class.forName("com.mysql.cj.jdbc.Driver");
         try {
-            String URL="jdbc:mysql://localhost:3306/codeforces";
+            String URL="jdbc:mysql://localhost:3306/miniproject";
             String USER="root";
             String PASS="password";
             Connection con = DriverManager.getConnection(URL, USER, PASS);

@@ -2,12 +2,10 @@ package operations;
 import java.io.IOException;
 import java.util.Scanner;
 
-
 public class SubHelp extends Help {
 
     @Override
     public void printHelpMenu() {
-
         try {
             super.printHelpMenu();
         } catch (Exception e) {
@@ -124,7 +122,12 @@ public class SubHelp extends Help {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             int k;
-            int choice = Integer.valueOf(scanner.nextLine());
+            int choice;
+            try {
+                choice = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                break;
+            }
             if (choice != 1 && choice != 2)
                 break;
             else {
