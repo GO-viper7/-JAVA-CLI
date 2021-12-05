@@ -72,6 +72,18 @@ public class App {
                         String tuple = args[2] + " " + args[3] + " " + args[4] + " " + args[5];
                         queries.Problem.insertProblems(conn, tuple);
                         break;
+                    case "-cnt":
+                        Problem.displayCount(conn);
+                        codeforces.disconnect(conn);
+                        break;
+                    case "-sum":
+                        Problem.displaySumRating(conn);
+                        codeforces.disconnect(conn);
+                        break;
+                    case "-avg":
+                        Problem.displayAvg(conn);
+                        codeforces.disconnect(conn);
+                        break;
                     case "-del":
                         queries.Problem.deleteProblems(conn, args[2]);
                         break;
@@ -162,6 +174,15 @@ public class App {
                         String tuple = args[2] + " " + args[3] + " " + args[4] + " " + args[5] + " " + args[6] + " "
                                 + args[7] + " " + args[8] + " " + args[9];
                         queries.User.insertUsers(conn, tuple);
+                        break;
+                    case "-cnt":
+                        queries.User.displayCount(conn);
+                        break;
+                    case "-sum":
+                        queries.User.displaySumContri(conn);
+                        break;
+                    case "-avg":
+                        queries.User.displayAvg(conn);
                         break;
                     case "-del":
                         queries.User.deleteUsers(conn, args[2]);
@@ -403,6 +424,15 @@ public class App {
                     case "-ins":
                         String tuple = args[2] + " " + args[3] + " " + args[4] + " " + args[5] + " " + args[6];
                         queries.Contest.insertContest(conn, tuple);
+                        break;
+                    case "-cnt":
+                        queries.Contest.displayCount(conn);
+                        break;
+                    case "-sum":
+                        queries.Contest.displaySumDiv(conn);
+                        break;
+                    case "-avg":
+                        queries.Contest.displayAvg(conn);
                         break;
                     case "-del":
                         queries.Contest.deleteContests(conn, args[2]);
