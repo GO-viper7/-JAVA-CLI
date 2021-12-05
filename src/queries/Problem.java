@@ -58,6 +58,51 @@ public class Problem implements DisplayInterface {
             System.out.println("Wrong command\nType \"-h\" to get help");
         }
     }
+    
+    public static void displayCount(Connection con) {
+        try {
+            ResultSet rs = DisplayInterface.displayTable(con,"Problem");
+            try{ 
+                Integer cnt=0;
+                do {
+                    cnt=cnt+1;
+               } while (rs.next());
+               System.out.println("Number of Records in Problem Table : "+cnt);
+            }catch(SQLException e){
+                System.out.println("Error: " + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Wrong command\nType \"-h\" to get help");
+        }   
+    }
+
+    public static void displaySumRating(Connection con) {
+        ResultSet rs = DisplayInterface.displayTable(con,"Problem");
+        try{ 
+            Integer sum=0;
+            do {
+                sum+=(rs.getInt(3));
+            } while (rs.next());
+            System.out.println("Sum of Rating of Problems in Problem Table : "+sum);
+        }catch(SQLException e){
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    public static void displayAvg(Connection con) {
+        ResultSet rs = DisplayInterface.displayTable(con,"Problem");
+        try{ 
+            Integer sum=0,cnt=0;
+            do {
+                sum+=(rs.getInt(3));
+                cnt+=1;
+            } while (rs.next());
+            System.out.println("Average Rating of Problems in Problem Table : "+sum/cnt);
+        }catch(SQLException e){
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
 
     public static void updateRatingByContest(Connection con, String ContestID, String Rating) {
         try {
