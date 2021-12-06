@@ -505,9 +505,18 @@ public class App {
                             case "-byEtime":
                                 queries.Contest.searchByEndTime(conn, args[3]);
                                 break;
+                            default:
+                                System.out.println("No command found");
+                                break;
                         }
                         break;
+                    default:
+                        System.out.println("No command found");
+                        break;
                 }
+            default:
+                System.out.println("No command found");
+                break;
         }
     }
 }
