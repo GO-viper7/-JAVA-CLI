@@ -460,6 +460,7 @@ public class App {
                                 break;
                             case "-byAut":
                                 queries.Contest.searchByAuthor(conn, args[3]);
+                                break;
                             case "-byDiv":
                                 switch (args[3]) {
                                     case "-gt":
@@ -514,6 +515,7 @@ public class App {
                         System.out.println("No command found");
                         break;
                 }
+                break;
             default:
                 System.out.println("No command found");
                 break;
